@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Azure AI Engineer - Module 1 Quiz</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="container">
+      <header class="header">
+        <h1 id="title">Module 1 Quiz: Develop Generative AI Applications</h1>
+        <p id="subtitle">Answer all questions based on your notes in 1-module-develop-gen-AI-apps.</p>
+      </header>
+
+      <div class="toolbar">
+        <label for="moduleSelect">Module:</label>
+        <select id="moduleSelect" aria-label="Select module">
+          <option value="mod1" selected>Module 1 - Develop Generative AI Apps</option>
+          <option value="mod2">Module 2 - Deploy models in AI Foundry</option>
+          <option value="all">All Modules (1 + 2)</option>
+        </select>
+        <label for="viewSelect">View:</label>
+        <select id="viewSelect" aria-label="Select view">
+          <option value="quiz" selected>Quiz</option>
+          <option value="study">Study Guide</option>
+        </select>
+      </div>
+
+      <section id="quiz" class="quiz"></section>
+      <section id="study" class="study" hidden></section>
+
+      <div id="controls" class="controls">
+        <button id="submitBtn" class="btn primary">Submit Answers</button>
+        <button id="retryBtn" class="btn" hidden>Reset</button>
+      </div>
+
+      <section id="result" class="result" aria-live="polite"></section>
+
+      <footer class="footer">
+        <small>Content derived from 1-module-develop-gen-AI-apps and aligned to study-guide.txt.</small>
+      </footer>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+  </html>
+
+

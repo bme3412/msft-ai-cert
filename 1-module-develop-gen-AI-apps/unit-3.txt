@@ -1,0 +1,61 @@
+Azure AI services
+
+Microsoft Azure provides a wide range of cloud services that you can use to develop, deploy, and manage an AI solution. The most obvious starting point for considering AI development on Azure is Azure AI services; a set of out-of-the-box prebuilt APIs and models that you can integrate into your applications. 
+
+Azure OpenAI - Azure OpenAI in Foundry Models provides access to OpenAI generative AI models including the GPT family of large and small language models and DALL-E image-generation models within a scalable and securable cloud service on Azure.
+
+Azure AI Vision - The Azure AI Vision service provides a set of models and APIs that you can use to implement common computer vision functionality in an application. With the AI Vision service, you can detect common objects in images, generate captions, descriptions, and tags based on image contents, and read text in images.
+
+Azure AI Speech - The Azure AI Speech service provides APIs that you can use to implement text to speech and speech to text transformation, as well as specialized speech-based capabilities like speaker recognition and translation.
+
+Azure AI Language - The Azure AI Language service provides models and APIs that you can use to analyze natural language text and perform tasks such as entity extraction, sentiment analysis, and summarization. The AI Language service also provides functionality to help you build conversational language models and question answering solutions.
+
+Azure AI Foundry Content Safety - Azure AI Foundry Content Safety provides developers with access to advanced algorithms for processing images and text and flagging content that is potentially offensive, risky, or otherwise undesirable.
+
+Azure AI Translator - The Azure AI Translator service uses state-of-the-art language models to translate text between a large number of languages.
+
+Azure AI Face - The Azure AI Face service is a specialist computer vision implementation that can detect, analyze, and recognize human faces. Because of the potential risks associated with personal identification and misuse of this capability, access to some features of the AI Face service are restricted to approved customers.
+
+Azure AI Custom Vision - The Azure AI Custom Vision service enables you to train and use custom computer vision models for image classification and object detection.
+
+Azure AI Document Intelligence - With Azure AI Document Intelligence, you can use pre-built or custom models to extract fields from complex documents such as invoices, receipts, and forms.
+
+Azure AI Content Understanding - The Azure AI Content Understanding service provides multi-modal content analysis capabilities that enable you to build models to extract data from forms and documents, images, videos, and audio streams.
+
+Azure AI Search - The Azure AI Search service uses a pipeline of AI skills based on other Azure AI Services and custom code to extract information from content and create a searchable index. AI Search is commonly used to create vector indexes for data that can then be used to ground prompts submitted to generative AI language models, such as those provided in Azure OpenAI.
+
+Considerations for Azure AI services resources
+To use Azure AI services, you create one or more Azure AI resources in an Azure subscription and implement code in client applications to consume them. In some cases, AI services include web-based visual interfaces that you can use to configure and test your resources - for example to train a custom image classification model using the Custom Vision service you can use the visual interface to upload training images, manage training jobs, and deploy the resulting model.
+
+Single service or multi-service resource?
+Most Azure AI services, such as Azure AI Vision, Azure AI Language, and so on, can be provisioned as standalone resources, enabling you to create only the Azure resources you specifically need. Additionally, standalone Azure AI services often include a free-tier SKU with limited functionality, enabling you to evaluate and develop with the service at no cost. Each standalone Azure AI resource provides an endpoint and authorization keys that you can use to access it securely from a client application.
+
+Alternatively, you can provision a multi-service resource that encapsulates multiple AI services in a single Azure resource. Using a multi-service resource can make it easier to manage applications that use multiple AI capabilities.
+
+Azure AI services
+The Azure AI Services resource type includes the following services, making them available from a single endpoint:
+Azure AI Speech
+Azure AI Language
+Azure AI Translator
+Azure AI Vision
+Azure AI Face
+Azure AI Custom Vision
+Azure AI Document Intelligence
+
+Azure AI Foundry
+The Azure AI Foundry resource type includes the following services, and supports working with them through an Azure AI Foundry project*:
+Azure OpenAI
+Azure AI Speech
+Azure AI Language
+Azure AI Foundry Content Safety
+Azure AI Translator
+Azure AI Vision
+Azure AI Face
+Azure AI Document Intelligence
+Azure AI Content Understanding
+
+Regional availability
+Some services and models are available in only a subset of Azure regions. Consider service availability and any regional quota restrictions for your subscription when provisioning Azure AI services. 
+
+Cost
+Azure AI services are charged based on usage, with different pricing schemes available depending on the specific services being used. As you plan an AI solution on Azure, use the Azure AI services pricing documentation to understand pricing for the AI services you intend to incorporate into your application. 

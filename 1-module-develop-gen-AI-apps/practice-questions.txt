@@ -1,0 +1,260 @@
+# Azure AI Engineer Exam Practice Questions
+## Module 1: Develop Generative AI Applications
+
+### Question 1
+Which Azure AI service is specifically designed to provide access to OpenAI generative AI models including GPT and DALL-E within a scalable and securable cloud service?
+
+A) Azure AI Language
+B) Azure AI Vision  
+C) Azure OpenAI in Foundry Models
+D) Azure AI Translator
+
+**Answer: C) Azure OpenAI in Foundry Models**
+Explanation: Provides enterprise-grade access to GPT and DALL·E through Azure with security, compliance, and managed, scalable endpoints.
+
+---
+
+### Question 2
+What are the two types of projects available in Azure AI Foundry?
+
+A) Foundry projects and Hub-based projects
+B) Standard projects and Premium projects
+C) Basic projects and Advanced projects
+D) Individual projects and Multi-service projects
+
+**Answer: A) Foundry projects and Hub-based projects**
+Explanation: Foundry projects link to an Azure AI Foundry resource; hub-based projects add managed compute, Prompt Flow, storage, and Key Vault for advanced scenarios.
+
+---
+
+### Question 3
+Which of the following is NOT included in the Azure AI Services resource type?
+
+A) Azure AI Speech
+B) Azure AI Language
+C) Azure AI Translator
+D) Azure AI Content Understanding
+
+**Answer: D) Azure AI Content Understanding**
+Explanation: The Azure AI Services multi-service resource includes Speech, Language, Translator, Vision, Face, Custom Vision, and Document Intelligence—not Content Understanding.
+
+---
+
+### Question 4
+What is the primary purpose of Azure AI Foundry Content Safety?
+
+A) To provide computer vision capabilities for image analysis
+B) To enable speech-to-text and text-to-speech conversion
+C) To provide advanced algorithms for processing images and text and flagging potentially offensive content
+D) To translate text between multiple languages
+
+**Answer: C) To provide advanced algorithms for processing images and text and flagging potentially offensive content**
+Explanation: Content Safety detects and classifies unsafe content (text/images) to help filter or block harmful material.
+
+---
+
+### Question 5
+Which principle of Responsible AI focuses on ensuring that AI systems treat all people fairly without bias based on gender, ethnicity, or other factors?
+
+A) Reliability and safety
+B) Privacy and security
+C) Fairness
+D) Transparency
+
+**Answer: C) Fairness**
+Explanation: Fairness means AI systems should not disadvantage protected groups; use representative data and evaluate subgroup performance.
+
+---
+
+### Question 6
+What is the main difference between large language models (LLMs) and small language models (SLMs)?
+
+A) LLMs are only available in Azure, while SLMs are open source
+B) LLMs have many millions of parameters and are trained on huge volumes of data, while SLMs are optimized for specific scenarios with lower overhead
+C) LLMs can only process text, while SLMs can handle multimodal input
+D) LLMs are free to use, while SLMs require payment
+
+**Answer: B) LLMs have many millions of parameters and are trained on huge volumes of data, while SLMs are optimized for specific scenarios with lower overhead**
+Explanation: LLMs are general-purpose, large and compute-heavy; SLMs are smaller, task-focused, with lower latency and cost.
+
+---
+
+### Question 7
+Which Azure AI service would be most appropriate for extracting key information from documents, forms, images, recordings, and other content types?
+
+A) Azure AI Vision
+B) Information Extraction (as part of Azure AI services)
+C) Azure AI Document Intelligence
+D) Azure AI Language
+
+**Answer: C) Azure AI Document Intelligence**
+Explanation: Document Intelligence provides prebuilt and custom models to extract fields from invoices, receipts, and forms.
+
+---
+
+### Question 8
+What is the primary benefit of using a multi-service Azure AI resource instead of individual standalone resources?
+
+A) It provides better performance for all services
+B) It makes it easier to manage applications that use multiple AI capabilities
+C) It reduces the cost of using multiple services
+D) It provides access to additional features not available in standalone resources
+
+**Answer: B) It makes it easier to manage applications that use multiple AI capabilities**
+Explanation: A single multi-service resource centralizes multiple services behind one endpoint and set of keys.
+
+---
+
+### Question 9
+Which development tool extension can be used in Visual Studio Code to simplify Azure AI Foundry development tasks?
+
+A) Azure AI Services Extension
+B) Azure AI Foundry for Visual Studio Code extension
+C) Azure Machine Learning Extension
+D) Azure OpenAI Extension
+
+**Answer: B) Azure AI Foundry for Visual Studio Code extension**
+Explanation: The VS Code extension streamlines creating projects, deploying models, testing in the playground, and creating agents.
+
+---
+
+### Question 10
+According to the Responsible AI principles, what should users be made fully aware of regarding AI systems?
+
+A) Only the cost of using the system
+B) The purpose of the system, how it works, and what limitations may be expected
+C) Only the technical architecture of the system
+D) Only the data sources used to train the models
+
+**Answer: B) The purpose of the system, how it works, and what limitations may be expected**
+Explanation: Transparency requires communicating intended use, mechanics, confidence/limits so users can make informed decisions.
+
+---
+
+### Question 11
+Which Azure AI service is commonly used to create vector indexes for data that can then be used to ground prompts submitted to generative AI language models?
+
+A) Azure AI Search
+B) Azure AI Document Intelligence
+C) Azure AI Content Understanding
+D) Azure AI Custom Vision
+
+**Answer: A) Azure AI Search**
+Explanation: AI Search builds vector/semantic indexes often used to ground LLM prompts in RAG solutions.
+
+---
+
+### Question 12
+What is the key characteristic of agents in AI applications?
+
+A) They can only process text input
+B) They can respond to user input or assess situations autonomously and take appropriate actions
+C) They are limited to computer vision tasks only
+D) They require constant human supervision
+
+**Answer: B) They can respond to user input or assess situations autonomously and take appropriate actions**
+Explanation: Agents operate with goals, tools, and memory to act beyond simple Q&A.
+
+---
+
+### Question 13
+Which principle of Responsible AI emphasizes that AI systems should be secure and respect privacy, especially when dealing with personal data?
+
+A) Fairness
+B) Privacy and security
+C) Inclusiveness
+D) Accountability
+
+**Answer: B) Privacy and security**
+Explanation: Protect personal data, secure endpoints/secrets, and enforce compliant handling across the ML lifecycle.
+
+---
+
+### Question 14
+What is the main advantage of using Azure AI Foundry over individual Azure AI services for AI development?
+
+A) It provides better pricing for all services
+B) It offers project organization, resource management, and AI development capabilities that make it the recommended way to build solutions
+C) It only supports generative AI applications
+D) It eliminates the need for coding
+
+**Answer: B) It offers project organization, resource management, and AI development capabilities that make it the recommended way to build solutions**
+Explanation: Foundry centralizes resource connections, model/agent lifecycle, evaluations, and responsible AI tooling.
+
+---
+
+### Question 15
+Which Azure AI service would be most appropriate for implementing automated checkout in a grocery store that identifies products in a shopping basket?
+
+A) Azure AI Language
+B) Azure AI Speech
+C) Computer Vision (Azure AI Vision)
+D) Azure AI Translator
+
+**Answer: C) Computer Vision (Azure AI Vision)**
+Explanation: AI Vision detects objects/tags and captions images—useful for recognizing products at checkout.
+
+---
+
+### Question 16
+What is the primary purpose of the Azure AI Foundry SDK?
+
+A) To provide visual interfaces for AI development
+B) To enable programmatic building of AI solutions and connection to Azure AI Foundry projects
+C) To replace the need for other Azure AI service SDKs
+D) To provide pre-built AI models
+
+**Answer: B) To enable programmatic building of AI solutions and connection to Azure AI Foundry projects**
+Explanation: The SDK connects to projects and resource connections to access models, agents, and services in code.
+
+---
+
+### Question 17
+Which principle of Responsible AI focuses on ensuring that AI brings benefits to all parts of society regardless of physical ability, gender, sexual orientation, ethnicity, or other factors?
+
+A) Fairness
+B) Transparency
+C) Inclusiveness
+D) Reliability and safety
+
+**Answer: C) Inclusiveness**
+Explanation: Inclusiveness ensures solutions empower everyone; include diverse users in design, development, and testing.
+
+---
+
+### Question 18
+What type of Azure AI resource includes managed compute, support for Prompt Flow development, and connected Azure storage and Azure key vault resources?
+
+A) Foundry projects
+B) Hub-based projects
+C) Multi-service resources
+D) Standalone resources
+
+**Answer: B) Hub-based projects**
+Explanation: Hubs add managed compute, Prompt Flow, and integrated storage/Key Vault for advanced development.
+
+---
+
+### Question 19
+Which Azure AI service would be most appropriate for a marketing application that needs to analyze social media messages, translate them, and categorize them as positive or negative?
+
+A) Azure AI Vision
+B) Azure AI Speech
+C) Natural Language Processing (Azure AI Language)
+D) Azure AI Document Intelligence
+
+**Answer: C) Natural Language Processing (Azure AI Language)**
+Explanation: AI Language supports sentiment, key phrase and entity extraction, and integrates with translation.
+
+---
+
+### Question 20
+According to Responsible AI principles, who should ultimately be accountable for AI systems?
+
+A) The AI models themselves
+B) The users of the system
+C) The developers who trained and validated the models and defined the decision logic
+D) The cloud service provider
+
+**Answer: C) The developers who trained and validated the models and defined the decision logic**
+Explanation: Accountability remains with people and organizations responsible for design, deployment, and governance.

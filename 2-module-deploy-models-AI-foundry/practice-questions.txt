@@ -1,0 +1,210 @@
+# Azure AI Engineer Exam Practice Questions
+## Module 2: Deploy models with Azure AI Foundry
+
+### Question 1
+Why do you deploy a language model to an endpoint in Azure AI Foundry?
+
+A) To reduce the model size
+B) To convert the model to a different architecture
+C) To expose the model via a secure API URL for client apps
+D) To automatically fine-tune the model
+
+**Answer: C) To expose the model via a secure API URL for client apps**
+Explanation: An endpoint provides a unique URL where applications can send requests and receive responses from the deployed model.
+
+---
+
+### Question 2
+Which catalogs can you use to discover models when exploring options for your app?
+
+A) Only Hugging Face
+B) Only GitHub
+C) Only Azure AI Foundry
+D) Hugging Face, GitHub, and Azure AI Foundry
+
+**Answer: D) Hugging Face, GitHub, and Azure AI Foundry**
+Explanation: All three catalog sources are referenced, with Azure AI Foundry offering the easiest path to explore and deploy.
+
+---
+
+### Question 3
+When would you typically prefer an SLM (Small Language Model) over an LLM?
+
+A) When you need deep reasoning with extensive context
+B) When you need cost-efficient, fast responses on lower-end or edge hardware
+C) When you need maximum multilingual accuracy
+D) When you need image generation
+
+**Answer: B) When you need cost-efficient, fast responses on lower-end or edge hardware**
+Explanation: SLMs are optimized for efficiency and speed; LLMs target complex reasoning and longer contexts.
+
+---
+
+### Question 4
+Which models are multi-modal (process both text and images) according to the module?
+
+A) GPT-4o and Phi3-vision
+B) Ada and Cohere embeddings
+C) DALL·E 3 and Stability AI
+D) Core42 JAIS and Nixtla TimeGEN-1
+
+**Answer: A) GPT-4o and Phi3-vision**
+Explanation: These examples are cited as multi-modal in the module; image generators (like DALL·E 3) are task-specific.
+
+---
+
+### Question 5
+What is the primary purpose of embedding models like Ada and Cohere embeddings?
+
+A) Generating images from text prompts
+B) Converting text to vectors for semantic search and RAG
+C) Performing speech recognition
+D) Providing chain-of-thought reasoning
+
+**Answer: B) Converting text to vectors for semantic search and RAG**
+Explanation: Embeddings map text into numerical vectors to enable similarity search and retrieval for grounding.
+
+---
+
+### Question 6
+Which example best represents a domain- or region-specific model use case?
+
+A) GPT-4 for any English task
+B) Core42 JAIS for Arabic-language applications
+C) DALL·E 3 for multilingual chat
+D) GPT-4o for time-series forecasting
+
+**Answer: B) Core42 JAIS for Arabic-language applications**
+Explanation: The module notes JAIS as an Arabic LLM; Nixtla TimeGEN-1 is an example for time-series forecasting.
+
+---
+
+### Question 7
+Which statement about open-source vs proprietary models is most accurate per the module?
+
+A) Proprietary models are always cheaper
+B) Open-source models cannot be fine-tuned
+C) Proprietary models offer cutting-edge performance and enterprise support
+D) Open-source models cannot be deployed in Azure AI Foundry
+
+**Answer: C) Proprietary models offer cutting-edge performance and enterprise support**
+Explanation: Open-source models offer flexibility and cost-efficiency; proprietary models emphasize performance and enterprise readiness.
+
+---
+
+### Question 8
+Which criteria are explicitly listed for filtering models in the selection process?
+
+A) Task type, Precision, Openness, Deployment
+B) Latency, GPU brand, Region, Budget
+C) Token limit, JSON mode, Function tools, Temperature
+D) Batch size, Learning rate, Epochs, Optimizer
+
+**Answer: A) Task type, Precision, Openness, Deployment**
+Explanation: The module identifies these four criteria to guide model selection.
+
+---
+
+### Question 9
+Which benchmark description is correctly matched?
+
+A) Coherence: exact string match to ground truth
+B) Fluency: grammatical correctness and natural-sounding responses
+C) Groundedness: model’s speed on GPU
+D) GPT Similarity: training dataset size
+
+**Answer: B) Fluency: grammatical correctness and natural-sounding responses**
+Explanation: Coherence relates to flow; accuracy is exact match; groundedness is alignment to input data; GPT Similarity measures semantic similarity.
+
+---
+
+### Question 10
+Which Azure AI Foundry deployment option uses compute-based billing and supports open and custom models?
+
+A) Standard deployment
+B) Serverless compute
+C) Managed compute
+D) Local deployment
+
+**Answer: C) Managed compute**
+Explanation: Managed compute hosts models via managed VM images in a hub and uses compute-based billing.
+
+---
+
+### Question 11
+Which deployment option supports Foundry Models with pay-as-you-go billing and token-based pricing?
+
+A) Standard deployment
+B) Serverless compute
+C) Managed compute
+D) On-premises cluster
+
+**Answer: B) Serverless compute**
+Explanation: Serverless compute in a hub uses token-based billing with Foundry Models and pay-as-you-go.
+
+---
+
+### Question 12
+Where are models hosted in a Standard deployment vs Serverless/Managed compute?
+
+A) Standard: AI Project in hub; Serverless/Managed: Foundry resource
+B) Standard: Foundry resource; Serverless/Managed: AI Project resource in a hub
+C) Both: Foundry resource only
+D) Both: AI Project resource in a hub only
+
+**Answer: B) Standard: Foundry resource; Serverless/Managed: AI Project resource in a hub**
+Explanation: The module provides a table mapping hosting services across deployment options.
+
+---
+
+### Question 13
+When should you first consider prompt engineering versus RAG or fine-tuning?
+
+A) Start with fine-tuning immediately
+B) Start with RAG immediately
+C) Start with prompt engineering, then consider RAG or fine-tuning if needed
+D) Skip prompt engineering entirely
+
+**Answer: C) Start with prompt engineering, then consider RAG or fine-tuning if needed**
+Explanation: Prompt engineering is the first, lowest-complexity optimization; RAG and fine-tuning add cost and complexity.
+
+---
+
+### Question 14
+What is the purpose of a system prompt in Azure AI Foundry deployments?
+
+A) It reduces token pricing
+B) It sets model behavior and guidance without exposing instructions to end users
+C) It increases GPU utilization
+D) It disables JSON responses
+
+**Answer: B) It sets model behavior and guidance without exposing instructions to end users**
+Explanation: System prompts define model role/policies and can be combined with user-facing templates.
+
+---
+
+### Question 15
+Which scenario best calls for RAG rather than fine-tuning?
+
+A) You need the model to mimic a specific writing style consistently
+B) You need the model to answer questions from your private policy documents
+C) You need to reduce inference latency on edge devices
+D) You need multi-turn function calling
+
+**Answer: B) You need the model to answer questions from your private policy documents**
+Explanation: RAG grounds responses in external data sources; fine-tuning improves format/style/consistency.
+
+---
+
+### Question 16
+Which considerations are called out for scaling a generative AI solution?
+
+A) Model deployment, monitoring/optimization, prompt management, model lifecycle
+B) Only GPU type and region
+C) Only batch size and cost
+D) Only temperature and top_p
+
+**Answer: A) Model deployment, monitoring/optimization, prompt management, model lifecycle**
+Explanation: The module lists these as key areas to plan for real-world workloads.
+
+

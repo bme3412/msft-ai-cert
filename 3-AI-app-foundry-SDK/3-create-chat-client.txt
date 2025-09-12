@@ -1,0 +1,7 @@
+Create a chat client
+
+A common scenario in an AI application is to connect to a generative AI model and use prompts to engage in a chat-based dialog with it.
+
+While you can use the Azure OpenAI SDK, to connect "directly" to a model using key-based or Microsoft Entra ID authentication; when your model is deployed in an Azure AI Foundry project, you can also use the Azure AI Foundry SDK to retrieve a project client, from which you can then get an authenticated OpenAI chat client for any models deployed in the project's Azure AI Foundry resource. This approach makes it easy to write code that consumes models deployed in your project, switching between them easily by changing the model deployment name parameter.
+
+The following Python code sample uses the get_openai_client() method to get an OpenAI client with which to chat with a model that has been deployed in the project'a Azure AI Foundry resource.

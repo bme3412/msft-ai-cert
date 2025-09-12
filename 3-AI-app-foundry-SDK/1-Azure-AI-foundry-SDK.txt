@@ -1,0 +1,12 @@
+What is the Azure AI Foundry SDK?
+
+Azure AI Foundry provides a REST API that you can use to work with AI Foundry projects and the resources they contain. Additionally, multiple language-specific SDKs are available, enabling developers to write code that uses resources in an Azure AI Foundry project in their preferred development language. With an Azure AI Foundry SDK, developers can create applications that connect to a project, access the resource connections and models in that project, and use them to perform AI operations, such as sending prompts to a generative AI model and processing the responses.
+
+The core package for working with projects is the Azure AI Projects library, which enables you to connect to an Azure AI Foundry project and access the resources defined within it. Available language-specific packages the for Azure AI Projects library include:
+
+To use the Azure AI Projects library in Python, you can use the pip package installation utility to install the azure-ai-projects package from PyPi:
+
+Using the SDK to connect to a project
+The first task in most Azure AI Foundry SDK code is to connect to an Azure AI Foundry project. Each project has a unique endpoint, which you can find on the project's Overview page in the Azure AI Foundry portal.
+
+You can use the project endpoint in your code to create an AIProjectClient object, which provides a programmatic proxy for the project, as shown in this Python example:
