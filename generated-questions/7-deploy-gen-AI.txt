@@ -1,0 +1,124 @@
+Deploy Generative AI Models
+Q1. GPT-4 Turbo vs GPT-3.5
+
+A financial firm wants a copilot that summarizes 200-page SEC filings with high accuracy. Which model should you deploy?
+
+A. GPT-3.5
+B. GPT-4 Turbo
+C. Embeddings model
+D. DALL·E
+
+✅ Answer: B – GPT-4 Turbo handles complex reasoning and summarization better than GPT-3.5.
+
+Q2. Cost Optimization
+
+You need a chatbot that answers simple FAQ questions for 10,000 daily users. Cost is the most important factor. Which model is best?
+
+A. GPT-3.5
+B. GPT-4 Turbo
+C. DALL·E
+D. GPT-4 Vision
+
+✅ Answer: A – GPT-3.5 is fast and cost-efficient for lightweight tasks.
+
+Q3. Embeddings Model
+
+Which of the following use cases is the best fit for an embeddings model?
+
+A. Generate an image of a new sneaker design.
+B. Cluster customer reviews by sentiment themes.
+C. Produce a multi-paragraph product description.
+D. Translate audio into text.
+
+✅ Answer: B – Embeddings are used for semantic similarity, clustering, and retrieval.
+
+Q4. DALL·E Use Case
+
+Your marketing team needs to create three banner images for a holiday campaign directly from text prompts. Which model should you deploy?
+
+A. GPT-3.5
+B. GPT-4 Turbo
+C. DALL·E
+D. GPT-4 Vision
+
+✅ Answer: C – DALL·E generates images from text prompts.
+
+Q5. Multimodal GPT-4 Vision
+
+A retailer wants an AI solution that can interpret uploaded product images and generate captions describing them. Which model should you deploy?
+
+A. GPT-4 Vision
+B. DALL·E
+C. GPT-3.5
+D. Embeddings
+
+✅ Answer: A – GPT-4 Vision can analyze text + images and output text.
+
+Q6. Trick Question – Summarization
+
+You are tasked with summarizing customer support transcripts that average 5 pages each. Which two models are most appropriate to evaluate?
+
+A. GPT-4 Turbo and GPT-3.5
+B. DALL·E and GPT-4 Vision
+C. Embeddings and DALL·E
+D. GPT-4 Vision and Form Recognizer
+
+✅ Answer: A – Both GPT-4 Turbo and GPT-3.5 can summarize; choice depends on accuracy vs cost.
+
+Q7. RAG Support
+
+Which model is typically paired with Azure AI Search to implement a RAG (Retrieval-Augmented Generation) pattern?
+
+A. GPT-4 Turbo or GPT-3.5 with embeddings
+B. DALL·E
+C. GPT-4 Vision
+D. Document Intelligence
+
+✅ Answer: A – RAG requires embeddings for retrieval + GPT for generation.
+
+Q8. Complex Reasoning Trade-off
+
+Your legal assistant must draft contracts with high factual accuracy, but your budget is limited. Which model should you use?
+
+A. GPT-3.5 only
+B. GPT-4 Turbo
+C. DALL·E + GPT-3.5
+D. Embeddings only
+
+✅ Answer: B – GPT-4 Turbo is optimized for complex reasoning at lower cost than GPT-4 standard.
+
+Q9. Trick Question – Image Understanding vs Image Generation
+
+A company wants to:
+
+Analyze images of receipts for key text (merchant, total).
+
+Generate marketing images for a new product line.
+
+Which combination of models should you deploy?
+
+A. GPT-3.5 for both.
+B. GPT-4 Vision for analysis + DALL·E for generation.
+C. Embeddings for analysis + GPT-4 Turbo for generation.
+D. Document Intelligence for analysis + GPT-3.5 for generation.
+
+✅ Answer: B – GPT-4 Vision analyzes images, while DALL·E generates images.
+
+Q10. Exam Curveball – Multimodel Orchestration
+
+Your startup wants to build a research copilot that:
+
+Answers complex financial queries with reasoning.
+
+Searches internal docs for supporting evidence.
+
+Generates illustrative charts and visuals for reports.
+
+Which set of models should you combine?
+
+A. GPT-4 Turbo + Embeddings + DALL·E
+B. GPT-3.5 only
+C. GPT-4 Vision + DALL·E only
+D. Document Intelligence + Form Recognizer
+
+✅ Answer: A – GPT-4 Turbo for reasoning, embeddings for retrieval, and DALL·E for visuals.

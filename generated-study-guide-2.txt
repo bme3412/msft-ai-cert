@@ -1,0 +1,206 @@
+Implement Generative AI Solutions (15–20%)
+🏗 Build Generative AI Solutions with Azure AI Foundry
+1. Plan & Prepare
+
+Define business case: chatbot, summarization, code generation, multimodal.
+
+Identify data sources: PDFs, databases, images, proprietary knowledge.
+
+Select best deployment pattern: RAG, fine-tuning, zero-shot/few-shot.
+
+2. Deploy Hub, Project, and Resources
+
+Hub = top-level workspace in Azure AI Foundry (like a container for projects).
+
+Project = scoped environment with resources (datasets, models, prompt flows).
+
+Deploy necessary services:
+
+Azure OpenAI
+
+Azure AI Search (for RAG grounding)
+
+Storage accounts (Blob, CosmosDB)
+
+Key Vault (secrets)
+
+Practice: Create a hub + project in AI Studio → deploy Azure OpenAI + Azure AI Search.
+
+3. Deploy Generative AI Models
+
+GPT-4 / GPT-4 Turbo: reasoning, summarization, copilots.
+
+GPT-3.5: cost-efficient lightweight tasks.
+
+Embeddings models: semantic search, clustering.
+
+DALL·E: image generation.
+
+Multimodal (GPT-4 with Vision): analyze text + images.
+
+🔄 Implement Prompt Flows & RAG
+1. Prompt Flow Solutions
+
+A visual + code workflow tool for building generative AI pipelines.
+
+Allows chaining: data prep → model call → post-processing.
+
+Integrates with evaluation tools (BLEU, ROUGE, GPT-based evaluators).
+
+Can include safety filters (Content Safety, prompt shields).
+
+Practice: Build a simple flow that:
+
+Accepts a user query.
+
+Calls GPT-4.
+
+Applies moderation filter.
+
+Outputs final response.
+
+2. RAG Pattern (Retrieval-Augmented Generation)
+
+Grounding: use external data to enrich LLM responses.
+
+Typical pipeline:
+
+Store docs in Blob → index with Azure AI Search → query embeddings.
+
+Pass top results as context in GPT prompt.
+
+Prevents hallucination; keeps model domain-specific.
+
+Practice: Build a RAG app where GPT-4 answers questions about company policies from a PDF.
+
+3. Evaluate Models & Flows
+
+Metrics: accuracy, fluency, coherence, safety.
+
+Use Azure AI Evaluation SDK or AI Studio evaluation dashboard.
+
+Collect user feedback for real-world tuning.
+
+🤖 Use Azure OpenAI in Foundry Models
+1. Provision Azure OpenAI
+
+Create a Foundry Models resource in Azure AI Foundry.
+
+Assign quota for models (GPT-4, GPT-3.5, embeddings).
+
+2. Select & Deploy Models
+
+GPT-4 Turbo: complex reasoning, chat apps.
+
+GPT-3.5: fast + cost-effective.
+
+DALL·E: image generation (prompt → image).
+
+Multimodal GPT-4: accepts both image + text input.
+
+3. Submit Prompts
+
+Via AI Studio playground or SDK (openai for GPT, azure-ai-inference).
+
+Generate:
+
+Natural language responses
+
+Summaries
+
+Code completions
+
+Images (DALL·E)
+
+4. Build Assistants
+
+Azure OpenAI Assistants API supports:
+
+Multi-turn conversations.
+
+Tool calling (functions, APIs).
+
+Memory storage.
+
+Practice: Create an AI Assistant that answers product FAQs with memory across turns.
+
+⚙️ Optimize & Operationalize Generative AI Solutions
+1. Configure Model Behavior
+
+Parameters:
+
+temperature: creativity vs determinism.
+
+top_p: nucleus sampling.
+
+max_tokens: length of response.
+
+frequency_penalty & presence_penalty: reduce repetition.
+
+2. Monitoring & Diagnostics
+
+Use Azure Monitor + App Insights:
+
+Latency
+
+Token consumption
+
+Quota usage
+
+Error rates
+
+Enable tracing with prompt logging for debugging.
+
+3. Optimize Resources
+
+Scale endpoints: set autoscaling policies.
+
+Use smaller models (GPT-3.5) for cheap bulk tasks, GPT-4 for high-accuracy cases.
+
+Keep up with foundation model updates from Azure.
+
+4. Feedback & Reflection
+
+Human-in-the-loop feedback: thumbs up/down, qualitative reviews.
+
+Model reflection: secondary LLM evaluates/filters the output of the primary LLM.
+
+Helps refine answers in production.
+
+5. Containers & Edge Deployment
+
+Deploy OpenAI models as containers not supported → but Vision, Speech, Form Recognizer are.
+
+For multimodal edge apps → containerized deployments reduce latency.
+
+6. Orchestration of Multiple Models
+
+Use multiple LLMs in workflow:
+
+GPT-4 for reasoning.
+
+Embeddings model for retrieval.
+
+DALL·E for image generation.
+
+Combine with LangChain or Semantic Kernel for orchestration.
+
+7. Prompt Engineering
+
+Few-shot prompting: provide examples.
+
+Chain-of-thought: guide model reasoning.
+
+Role prompting: “You are a financial analyst…”
+
+Guardrail prompting: explicitly restrict behavior.
+
+8. Fine-Tuning
+
+Upload training dataset (JSONL).
+
+Use OpenAI fine-tuning endpoints.
+
+Improves model performance on niche domains (legal docs, company-specific Q&A).
+
+Still requires RAG for current/large datasets.

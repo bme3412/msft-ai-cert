@@ -1,0 +1,147 @@
+Study Guide – Azure AI Solution (20–25%)
+1. Selecting the Appropriate Azure AI Foundry Services
+Generative AI
+
+Azure OpenAI Service
+
+GPT, GPT-4 Turbo, Embeddings, DALL-E, etc.
+
+Use for text generation, summarization, chatbots, image generation.
+
+Practice: Deploy GPT-4 in Azure AI Studio, set tokens/temperature, test prompts.
+
+Computer Vision
+
+Azure AI Vision
+
+Image analysis, object detection, OCR, spatial analysis.
+
+Practice: Upload images, run OCR, detect objects.
+
+Natural Language Processing (NLP)
+
+Azure AI Language
+
+Sentiment analysis, key phrase extraction, translation, summarization.
+
+Practice: Feed sample text, extract entities.
+
+Speech
+
+Azure AI Speech
+
+Speech-to-text, text-to-speech, translation.
+
+Practice: Convert audio file → transcript, text → voice.
+
+Information Extraction
+
+Document Intelligence (Form Recognizer)
+
+Extract data from structured/unstructured docs (invoices, receipts).
+
+Practice: Train a custom model with sample documents.
+
+Knowledge Mining
+
+Azure AI Search (with Cognitive Search)
+
+Index content, semantic search, enrichment pipelines.
+
+Practice: Connect data source → build knowledge index → query it.
+
+2. Plan, Create, and Deploy an Azure AI Foundry Service
+
+Responsible AI Principles
+
+Fairness, reliability, safety, privacy/security, inclusiveness, transparency, accountability.
+
+Practice: Configure content filters, prompt shields, and blocklists.
+
+Create AI Resources
+
+Deploy via Azure Portal, CLI, ARM/Bicep templates, or Terraform.
+
+Model Choice
+
+Match business case → appropriate model (OpenAI, custom vision, language, etc.).
+
+Deployment
+
+Options: real-time endpoints, batch inference, container deployment.
+
+Practice: Deploy GPT-4 as real-time endpoint, call it via Python SDK.
+
+SDKs & APIs
+
+azure-ai-textanalytics, azure-cognitiveservices-vision, azure-ai-formrecognizer, openai SDK.
+
+Practice: Write Python/Node.js code to call multiple services.
+
+Default Endpoint
+
+Found in resource → “Keys and Endpoints” blade.
+
+Use consistent endpoint for SDK/API calls.
+
+CI/CD Integration
+
+Azure DevOps or GitHub Actions pipelines.
+
+Automate model deployment, version control, and testing.
+
+Container Deployment
+
+Services (Speech, Vision, Form Recognizer) support Docker containers for offline/edge use.
+
+Practice: Run AI service in a local Docker container.
+
+3. Manage, Monitor, and Secure an Azure AI Foundry Service
+
+Monitoring
+
+Use Azure Monitor, App Insights, Diagnostics logs.
+
+Track: latency, errors, token consumption.
+
+Cost Management
+
+Azure Cost Management + Budgets.
+
+Set usage quotas and alerts.
+
+Account Keys
+
+Store securely in Azure Key Vault.
+
+Rotate keys periodically.
+
+Authentication
+
+Use Managed Identity instead of API keys when possible.
+
+4. Implement AI Solutions Responsibly
+
+Content Moderation
+
+Use Azure AI Content Safety (detect harmful text/images).
+
+Enable filters (profanity, violence, sexual, self-harm).
+
+Responsible AI Insights
+
+Configure dashboards for content safety.
+
+Monitor for bias and harmful outputs.
+
+Prevent Harmful Behavior
+
+Use prompt shields, blocklists.
+
+Limit jailbreak attacks.
+
+Governance
+
+Define RAI policy framework.
+
+Include compliance, ethical reviews, escalation policies.

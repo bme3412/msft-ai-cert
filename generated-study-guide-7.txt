@@ -1,0 +1,36 @@
+Implement knowledge mining and information extraction solutions (15–20%)
+Implement an Azure AI Search solution
+Provision an Azure AI Search resource, create an index, and define a skillset
+
+Create data sources and indexers
+
+Implement custom skills and include them in a skillset
+
+Create and run an indexer
+
+Query an index, including syntax, sorting, filtering, and wildcards
+
+Manage Knowledge Store projections, including file, object, and table projections
+
+Implement semantic and vector store solutions
+
+Implement an Azure AI Document Intelligence solution
+Provision a Document Intelligence resource
+
+Use prebuilt models to extract data from documents
+
+Implement a custom document intelligence model
+
+Train, test, and publish a custom document intelligence model
+
+Create a composed document intelligence model
+
+Extract information with Azure AI Content Understanding
+Create an OCR pipeline to extract text from images and documents
+
+Summarize, classify, and detect attributes of documents
+
+Extract entities, tables, and images from documents
+
+Process and ingest documents, images, videos, and audio with Azure AI Content Understanding
+

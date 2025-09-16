@@ -1,0 +1,131 @@
+1. Define the Business Case
+What It Means
+
+Before selecting models or deploying services, you must clearly define why you’re building the solution.
+
+Chatbots & Copilots
+
+Automate customer service, IT helpdesk, HR policy Q&A.
+
+Key requirement → real-time interaction with guardrails.
+
+Best-fit models → GPT-4 Turbo (multi-turn, cost-effective).
+
+Summarization
+
+Condense long text (earnings calls, legal docs, medical transcripts).
+
+Requirement → abstractive summarization, accuracy, domain safety.
+
+Best-fit models → GPT-4 for complex text, GPT-3.5 for cost-sensitive.
+
+Code Generation
+
+Developer copilots, code explanations, test automation.
+
+Requirement → programming language knowledge, multi-turn refinement.
+
+Best-fit models → GPT-4 Turbo (reasoning, structured output).
+
+Multimodal Solutions
+
+Accept text + images (GPT-4-Vision) or text → image (DALL·E).
+
+Example use cases:
+
+Analyze product defects from an image and recommend fixes.
+
+Generate ad campaign images based on product descriptions.
+
+Best Practices
+
+Tie the business case → measurable ROI (reduced call volume, faster reporting, improved developer velocity).
+
+Keep Responsible AI principles in mind from the start.
+
+Document functional + non-functional requirements:
+
+Latency (real-time vs. batch).
+
+Accuracy (domain expertise required).
+
+Cost (token volume, frequency of calls).
+
+📂 2. Identify Data Sources
+Why It Matters
+
+Generative AI is only as good as the data grounding it. Microsoft expects you to map source → ingestion → grounding before implementation.
+
+Common Data Sources
+
+Documents: PDFs, Word, PowerPoint (stored in Blob, SharePoint, OneDrive).
+
+Databases: SQL, CosmosDB, Data Lake.
+
+Images: product catalogs, scanned receipts, diagnostic images.
+
+Proprietary Knowledge: internal policies, call transcripts, financial records.
+
+Data Prep Steps
+
+Ingest: Store data in Blob/SQL → connect to AI Foundry.
+
+Enrich: Use AI Search to index (OCR, NER, embeddings).
+
+Ground: Pass top results as context to LLM (RAG pattern).
+
+Secure: Control access with Key Vault + RBAC.
+
+Best Practices
+
+Assess data quality → noisy/inconsistent docs cause poor grounding.
+
+Consider compliance requirements (PII, GDPR, HIPAA).
+
+Use metadata tagging (timestamps, categories) for better retrieval.
+
+🔧 3. Select the Best Deployment Pattern
+
+Microsoft will test whether you can pick the right AI usage pattern for a scenario.
+
+A. RAG (Retrieval-Augmented Generation)
+
+When to Use: Knowledge-base Q&A, domain-specific copilots.
+
+How:
+
+Store docs → create embeddings → index in Azure AI Search.
+
+Retrieve top N docs → provide as context to GPT.
+
+Benefit: Reduces hallucination, uses external knowledge.
+
+Example: An HR chatbot that answers questions from the company handbook.
+
+B. Fine-Tuning
+
+When to Use:
+
+Model must mimic style (legal writing, brand tone).
+
+Model needs custom domain (insurance claims, pharma trials).
+
+How: Train a base model with JSONL dataset (input → ideal output).
+
+Benefit: Improves style consistency and accuracy in narrow domains.
+
+Example: An AI that generates legal contracts in the firm’s preferred format.
+
+C. Zero-Shot / Few-Shot Prompting
+
+Zero-Shot: Ask model to perform a task without examples.
+
+Example: “Translate this text into French.”
+
+Few-Shot: Provide a handful of examples in the prompt.
+
+Example: Show 3 Q&A pairs → model answers a new question in same style.
+
+Benefit: Fastest to deploy; no training or external data required.
+
+Example: Ad copy generation without domain-specific grounding.

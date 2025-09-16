@@ -1,0 +1,110 @@
+Plan, Create, and Deploy an Azure AI Foundry Service
+Q1. Responsible AI Principles
+
+Your team is deploying an AI model for resume screening. To comply with Responsible AI principles, which action best addresses fairness?
+
+A. Rotate API keys every 90 days.
+B. Use a diverse training dataset that reduces bias against gender/ethnicity.
+C. Enable profanity filters in Azure AI Content Safety.
+D. Deploy the model in multiple Azure regions for availability.
+
+✅ Answer: B – Fairness relates to avoiding bias and ensuring equitable outcomes.
+
+Q2. Deploying AI Resources
+
+Which of the following is not a valid way to create an Azure AI Foundry resource?
+
+A. Azure Portal
+B. Azure CLI
+C. ARM/Bicep Templates
+D. GitHub Copilot Chat
+
+✅ Answer: D – Copilot Chat can help you write code, but it does not directly deploy resources.
+
+Q3. Model Choice
+
+You need to analyze product reviews for sentiment and extract entities (e.g., company names). Which model/service should you select?
+
+A. Azure OpenAI GPT-4 Turbo
+B. Azure AI Vision
+C. Azure AI Language
+D. Document Intelligence (Form Recognizer)
+
+✅ Answer: C – Azure AI Language provides sentiment analysis and entity extraction.
+
+Q4. Deployment Options
+
+You’re tasked with building a real-time customer support chatbot where latency must be <2 seconds. Which deployment option should you choose?
+
+A. Batch inference
+B. Real-time endpoint
+C. Container deployment
+D. Offline training job
+
+✅ Answer: B – Real-time endpoints are designed for low-latency, interactive scenarios.
+
+Q5. Batch vs. Real-Time
+
+A hospital wants to process 10,000 radiology reports overnight using AI to identify mentions of medical conditions. Which deployment mode is most appropriate?
+
+A. Real-time endpoint
+B. Containerized deployment
+C. Batch inference
+D. Managed identity
+
+✅ Answer: C – Batch inference is best for large-scale, non-interactive processing.
+
+Q6. Containers
+
+A government agency requires an AI solution that runs completely offline, without sending data to the cloud. Which deployment option fits best?
+
+A. Real-time endpoint in Azure AI Studio
+B. Batch inference job
+C. Containerized deployment of Document Intelligence
+D. Azure AI Search
+
+✅ Answer: C – Containers allow services (Vision, Speech, Form Recognizer) to run on-premises.
+
+Q7. SDKs & APIs
+
+Which Python SDK would you use to interact with GPT-4 deployed in Azure AI Foundry?
+
+A. azure-ai-textanalytics
+B. openai
+C. azure-cognitiveservices-vision
+D. azure-ai-formrecognizer
+
+✅ Answer: B – The OpenAI SDK (with Azure credentials) is used for GPT-4.
+
+Q8. Default Endpoint
+
+Where do you find the default endpoint URL needed to call an Azure AI resource via SDK?
+
+A. Azure Resource Group → Tags
+B. Azure AI Studio → Content Safety tab
+C. Azure Portal → Keys and Endpoints blade
+D. Azure Monitor → Metrics
+
+✅ Answer: C – All AI resources have keys and endpoints in the Keys and Endpoints blade.
+
+Q9. CI/CD
+
+You want to automate model deployment, run tests, and promote from dev → staging → production. Which tools are most appropriate?
+
+A. Azure DevOps Pipelines or GitHub Actions
+B. Azure Key Vault
+C. Azure Monitor
+D. Azure AI Content Safety
+
+✅ Answer: A – DevOps pipelines enable automated deployment and version control.
+
+Q10. Trick Question — Containers vs. Real-Time
+
+A manufacturing company wants to detect defects in real-time on an assembly line, but the factory has strict data residency regulations and requires the model to run on-prem. Which deployment option should you choose?
+
+A. Real-time endpoint in Azure cloud
+B. Containerized deployment of Vision service
+C. Batch inference pipeline in Azure
+D. Azure AI Search
+
+✅ Answer: B – Real-time + compliance → containerized deployment at the edge.

@@ -1,0 +1,116 @@
+Deploy Hub, Project, and Resources
+🏗 1. Hub (Top-Level Workspace)
+Concept
+
+A Hub is the top-level organizational container in Azure AI Foundry.
+
+Think of it like a resource group dedicated to AI projects.
+
+Key Points
+
+Each hub can contain multiple projects.
+
+Manages shared infrastructure (authentication, monitoring, governance).
+
+Provides centralized dashboards for cost, usage, and compliance.
+
+Best Practices
+
+Create hubs aligned with business units (e.g., Finance AI Hub, HR AI Hub).
+
+Apply RBAC roles at hub level (e.g., data scientist, contributor, reader).
+
+Use tags to track costs across environments (dev/test/prod).
+
+Hands-on Practice: In Azure AI Studio, create a new hub called Enterprise-AI-Hub.
+
+📂 2. Project (Scoped Environment)
+Concept
+
+A Project is a workspace inside a hub.
+
+Scoped to a specific solution or app (e.g., Customer Support Chatbot Project).
+
+Key Points
+
+Contains:
+
+Datasets (PDFs, images, structured data).
+
+Models (GPT-4, embeddings, fine-tuned versions).
+
+Prompt flows (pipelines combining models, data, moderation).
+
+Has its own lifecycle (development → testing → production).
+
+Best Practices
+
+Create projects per use case rather than per developer.
+
+Keep environments separated: Chatbot Project, Summarization Project, etc.
+
+Enable Responsible AI configuration at the project level.
+
+Hands-on Practice: Create a project inside your hub called HR-Policy-Chatbot.
+
+🔧 3. Deploy Necessary Services
+
+When setting up a project, you typically provision core Azure services:
+
+A. Azure OpenAI Service
+
+Provides GPT, embeddings, and DALL·E models.
+
+Used for text generation, chat, summarization, code, and image creation.
+
+Requires quota approval (not available in every subscription by default).
+
+B. Azure AI Search (Cognitive Search)
+
+Provides indexing + semantic search.
+
+Essential for RAG pattern (Retrieval-Augmented Generation).
+
+Can enrich data with OCR, entity recognition, and translation before indexing.
+
+C. Storage Accounts
+
+Azure Blob Storage → store unstructured docs (PDF, images).
+
+CosmosDB / SQL DB → store structured datasets (products, customer info).
+
+Used as the raw knowledge base before indexing in AI Search.
+
+D. Azure Key Vault
+
+Stores API keys, credentials, secrets.
+
+Recommended instead of embedding keys directly in code.
+
+Can integrate with Managed Identity to remove need for key sharing.
+
+🛡 Security & Access Considerations
+
+Apply least privilege access at both hub and project levels.
+
+Use Managed Identity for apps instead of API keys.
+
+Store all secrets (OpenAI keys, connection strings) in Key Vault.
+
+Enable network restrictions if needed (e.g., private endpoints for storage + search).
+
+🔁 Typical Workflow
+
+Create Hub → "Finance-AI-Hub"
+
+Create Project → "Earnings-Call-Summarizer"
+
+Deploy Azure OpenAI → GPT-4 + embeddings
+
+Deploy Azure AI Search → index transcripts + reports
+
+Deploy Storage Account → PDFs of 10-K filings
+
+Deploy Key Vault → securely store API keys + connection strings
+
+Integrate into prompt flow → GPT-4 grounded on indexed SEC filings

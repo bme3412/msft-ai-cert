@@ -1,0 +1,110 @@
+Manage, Monitor, and Secure Azure AI Foundry Services
+Q1. Monitoring Basics
+
+Which tool would you use to track latency, error rates, and token consumption for an Azure OpenAI deployment?
+
+A. Azure Key Vault
+B. Azure Monitor
+C. Azure Resource Manager
+D. Azure DevOps
+
+✅ Answer: B – Azure Monitor provides metrics on performance, including latency and errors.
+
+Q2. Application Insights
+
+A developer wants to trace API calls to an Azure AI endpoint and measure end-to-end response times. Which tool is best?
+
+A. Diagnostics Logs
+B. Application Insights
+C. Azure DevOps
+D. Azure AI Studio
+
+✅ Answer: B – App Insights provides telemetry for dependencies, response times, and custom events.
+
+Q3. Diagnostics Logs
+
+What is the main use of Diagnostics Logs for an Azure AI Foundry service?
+
+A. Store API keys securely
+B. Automate model retraining
+C. Collect system-level logs such as request/response data
+D. Translate logs into different languages
+
+✅ Answer: C – Diagnostics Logs capture detailed request/response and system-level activity.
+
+Q4. Cost Management
+
+Your project manager asks you to prevent monthly Azure AI costs from exceeding $2,000. Which feature should you configure?
+
+A. Azure Cost Management + Budgets
+B. Azure AI Studio prompt shields
+C. Application Insights
+D. Azure Key Vault
+
+✅ Answer: A – Budgets in Azure Cost Management allow you to set spend limits and trigger alerts.
+
+Q5. Quota & Token Tracking
+
+Which of the following would be the best way to ensure your GPT-4 usage does not exceed quota unexpectedly?
+
+A. Rotate API keys monthly
+B. Set alerts in Azure Monitor for token consumption
+C. Deploy services via container for offline use
+D. Use CI/CD pipelines for deployments
+
+✅ Answer: B – Token consumption monitoring ensures quotas are not exceeded.
+
+Q6. Key Security
+
+Where should you store Azure AI API keys to keep them secure?
+
+A. Environment variables on a developer’s laptop
+B. Azure Blob Storage
+C. Azure Key Vault
+D. In source code repositories
+
+✅ Answer: C – Azure Key Vault is the recommended secure store for API keys and secrets.
+
+Q7. Key Rotation
+
+Why does Azure provide primary and secondary keys for AI services?
+
+A. To allow high availability across multiple regions
+B. To make quota usage double
+C. To enable smooth key rotation without downtime
+D. To reduce token costs
+
+✅ Answer: C – Having two keys allows rotation (swap keys without breaking service).
+
+Q8. Authentication — Best Practice
+
+Which is the most secure method of authenticating applications to Azure AI services?
+
+A. Hard-coding API keys in source code
+B. Storing API keys in Azure Key Vault
+C. Using Managed Identity with role-based access control
+D. Creating a new API key for every developer
+
+✅ Answer: C – Managed Identity is the most secure because it removes the need for keys altogether.
+
+Q9. Trick Question — Monitoring vs. Security
+
+A security officer asks you to audit failed authentication attempts against your Azure AI resource. Which tool is most appropriate?
+
+A. Azure Cost Management
+B. Diagnostics Logs
+C. Application Insights
+D. Azure AI Studio
+
+✅ Answer: B – Diagnostics Logs capture authentication failures and request activity.
+
+Q10. Trick Question — Cost vs. Monitoring
+
+Your GPT-4 workload is exceeding its budget because developers are testing prompts without limits. Which TWO actions help?
+
+A. Configure usage quotas and budget alerts.
+B. Store API keys in Azure Key Vault.
+C. Use Managed Identity instead of keys.
+D. Monitor token consumption in Azure Monitor.
+
+✅ Answer: A and D – Budgets/quotas control cost, while token monitoring detects spikes.

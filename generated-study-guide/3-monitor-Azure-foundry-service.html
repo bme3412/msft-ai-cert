@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor Azure AI Foundry Service - Study Guide</title>
+    <style>
+        :root {
+            --primary: #0078d4;
+            --secondary: #106ebe;
+            --accent: #00bcf2;
+            --success: #107c10;
+            --warning: #ff8c00;
+            --danger: #d13438;
+            --dark: #323130;
+            --light: #f3f2f1;
+            --text: #323130;
+            --text-muted: #605e5c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 120, 212, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 12px;
+            padding: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-tab.active {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-tab:hover:not(.active) {
+            background: var(--light);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-icon {
+            font-size: 2.5rem;
+            margin-right: 15px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .subsection {
+            margin-bottom: 25px;
+        }
+
+        .subsection h3 {
+            color: var(--secondary);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .monitoring-list, .cost-list, .security-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .monitoring-list li, .cost-list li, .security-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .monitoring-list li:before {
+            content: "📊";
+            position: absolute;
+            left: 0;
+        }
+
+        .cost-list li:before {
+            content: "💰";
+            position: absolute;
+            left: 0;
+        }
+
+        .security-list li:before {
+            content: "🔐";
+            position: absolute;
+            left: 0;
+        }
+
+        .hands-on {
+            background: linear-gradient(135deg, #e8f4fd 0%, #f0f8ff 100%);
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .hands-on h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .hands-on ol {
+            padding-left: 20px;
+        }
+
+        .hands-on li {
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .comparison-matrix {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .matrix-table th,
+        .matrix-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .matrix-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .matrix-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .tool-name {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .feature-tag {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin: 2px;
+        }
+
+        .exam-tricks {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 2px solid var(--warning);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .exam-tricks h2 {
+            color: var(--warning);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .trick-question {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--warning);
+        }
+
+        .trick-question h4 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .trick-answer {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            border-left: 3px solid var(--success);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .quick-reference {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .quick-reference h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .reference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .reference-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .reference-item h4 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .best-practice {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 2px solid var(--success);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .best-practice h4 {
+            color: var(--success);
+            margin-bottom: 10px;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .metric-card h5 {
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .nav-tab {
+                margin-bottom: 5px;
+            }
+
+            .matrix-table {
+                font-size: 0.9rem;
+            }
+
+            .matrix-table th,
+            .matrix-table td {
+                padding: 10px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Monitor Azure AI Foundry Service</h1>
+            <p>Comprehensive guide for monitoring, managing, and securing AI services</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('monitoring')">Monitoring Guide</button>
+            <button class="nav-tab" onclick="showTab('comparison')">Tools Comparison</button>
+            <button class="nav-tab" onclick="showTab('exam-tricks')">Exam Tricks</button>
+            <button class="nav-tab" onclick="showTab('quick-ref')">Quick Reference</button>
+        </div>
+
+        <!-- Monitoring Guide Tab -->
+        <div id="monitoring" class="tab-content active">
+            <!-- Monitoring Tools -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">📊</div>
+                    <div class="section-title">Monitoring Tools</div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Azure Monitor</h3>
+                    <ul class="monitoring-list">
+                        <li><strong>Unified Platform:</strong> Track metrics (latency, requests/sec, errors)</li>
+                        <li><strong>Alerting:</strong> Set alerts (e.g., notify if >5% requests fail)</li>
+                        <li><strong>Dashboards:</strong> Create custom monitoring dashboards</li>
+                        <li><strong>Integration:</strong> Works with all Azure AI services</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Application Insights (App Insights)</h3>
+                    <ul class="monitoring-list">
+                        <li><strong>Deep Telemetry:</strong> Response times, dependency tracking, custom events</li>
+                        <li><strong>AI Workload Debugging:</strong> Trace end-to-end transactions</li>
+                        <li><strong>Performance Analysis:</strong> Identify bottlenecks and slow queries</li>
+                        <li><strong>Custom Events:</strong> Track business-specific metrics</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Diagnostics Logs</h3>
+                    <ul class="monitoring-list">
+                        <li><strong>System Logs:</strong> Request/response, authentication failures</li>
+                        <li><strong>Log Analytics:</strong> Push logs into Log Analytics Workspace</li>
+                        <li><strong>KQL Queries:</strong> Query logs with Kusto Query Language</li>
+                        <li><strong>Retention:</strong> Configurable log retention periods</li>
+                    </ul>
+                </div>
+
+                <div class="hands-on">
+                    <h4>🎯 Hands-on Practice</h4>
+                    <ol>
+                        <li>Enable App Insights for an Azure OpenAI resource</li>
+                        <li>Run a query in Log Analytics to see average response time</li>
+                        <li>Set an alert if GPT-4 token usage exceeds 80% of quota</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- What to Monitor -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">📈</div>
+                    <div class="section-title">What to Monitor</div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Performance Metrics</h3>
+                    <div class="metric-card">
+                        <h5>Latency</h5>
+                        <p>Response time for AI model requests - critical for user experience</p>
+                    </div>
+                    <div class="metric-card">
+                        <h5>Throughput</h5>
+                        <p>Requests per second - indicates system capacity and load</p>
+                    </div>
+                    <div class="metric-card">
+                        <h5>Error Rates</h5>
+                        <p>Percentage of failed requests - indicates system health</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Token Consumption</h3>
+                    <ul class="monitoring-list">
+                        <li><strong>Input Tokens:</strong> Text sent to the model</li>
+                        <li><strong>Output Tokens:</strong> Text generated by the model</li>
+                        <li><strong>Cost Tracking:</strong> Monitor token usage for billing optimization</li>
+                        <li><strong>Quota Management:</strong> Track against subscription limits</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>User Activity</h3>
+                    <ul class="monitoring-list">
+                        <li><strong>API Calls per App:</strong> Track usage by application</li>
+                        <li><strong>User Auditing:</strong> Monitor API calls per user for compliance</li>
+                        <li><strong>Usage Patterns:</strong> Identify peak usage times and patterns</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Cost Management -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">💰</div>
+                    <div class="section-title">Cost Management</div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Azure Cost Management + Billing</h3>
+                    <ul class="cost-list">
+                        <li><strong>Spend Tracking:</strong> Track spend by service, subscription, or resource group</li>
+                        <li><strong>Hot Spot Identification:</strong> Identify areas of high usage and cost</li>
+                        <li><strong>Cost Analysis:</strong> Detailed breakdown of AI service costs</li>
+                        <li><strong>Forecasting:</strong> Predict future costs based on usage trends</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Budgets & Alerts</h3>
+                    <ul class="cost-list">
+                        <li><strong>Monthly Limits:</strong> Define budget limits for AI resources</li>
+                        <li><strong>Alert Triggers:</strong> Email or webhook alerts when budget exceeded</li>
+                        <li><strong>Usage Quotas:</strong> Restrict request rates (per minute/hour/day)</li>
+                        <li><strong>Cost Control:</strong> Prevent runaway costs from unexpected usage</li>
+                    </ul>
+                </div>
+
+                <div class="best-practice">
+                    <h4>💡 Best Practices</h4>
+                    <ul>
+                        <li>Use tags (e.g., "env:dev" or "dept:finance") to track cost per team</li>
+                        <li>For experiments → use dev/test resource SKUs where possible</li>
+                        <li>Monitor token-based billing for OpenAI models (input + output tokens)</li>
+                    </ul>
+                </div>
+
+                <div class="hands-on">
+                    <h4>🎯 Hands-on Practice</h4>
+                    <ol>
+                        <li>Create a budget alert for $100/month on your AI resource</li>
+                        <li>Tag resources with owner:brendan and environment:dev</li>
+                        <li>Compare GPT-3.5 vs GPT-4 costs for the same workload</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Account Keys Management -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">🔑</div>
+                    <div class="section-title">Account Keys Management</div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Key Concepts</h3>
+                    <p>Every Cognitive Service/OpenAI resource provides:</p>
+                    <ul class="security-list">
+                        <li><strong>Primary Key:</strong> Main authentication key for API access</li>
+                        <li><strong>Secondary Key:</strong> Backup key for key rotation</li>
+                        <li><strong>Key Rotation:</strong> Both keys are valid → rotate periodically for security</li>
+                        <li><strong>Regeneration:</strong> Keys can be regenerated without service interruption</li>
+                    </ul>
+                </div>
+
+                <div class="best-practice">
+                    <h4>🔐 Security Best Practices</h4>
+                    <ul>
+                        <li><strong>Azure Key Vault:</strong> Store keys in Key Vault → apps retrieve at runtime</li>
+                        <li><strong>No Hard-coding:</strong> Never hard-code keys in source code or config files</li>
+                        <li><strong>Regular Rotation:</strong> Rotate keys (e.g., every 90 days)</li>
+                        <li><strong>Access Control:</strong> Limit key access to authorized applications only</li>
+                    </ul>
+                </div>
+
+                <div class="hands-on">
+                    <h4>🎯 Hands-on Practice</h4>
+                    <ol>
+                        <li>Store API key in Azure Key Vault</li>
+                        <li>Configure an app to retrieve key via Managed Identity</li>
+                        <li>Rotate a key and confirm the app updates without downtime</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Authentication -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">🔐</div>
+                    <div class="section-title">Authentication Options</div>
+                </div>
+
+                <div class="subsection">
+                    <h3>API Keys</h3>
+                    <ul class="security-list">
+                        <li><strong>Simple:</strong> Easy to implement and use</li>
+                        <li><strong>Less Secure:</strong> Keys can be compromised or leaked</li>
+                        <li><strong>Use Case:</strong> Only for quick POCs and development</li>
+                        <li><strong>Management:</strong> Requires manual key rotation and storage</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Managed Identity (Recommended)</h3>
+                    <ul class="security-list">
+                        <li><strong>Azure AD Identity:</strong> Assign an Azure AD identity to your app/service</li>
+                        <li><strong>No Key Storage:</strong> Eliminates need for keys</li>
+                        <li><strong>RBAC Integration:</strong> Integrates with Role-Based Access Control</li>
+                        <li><strong>Automatic Rotation:</strong> Microsoft manages credential rotation</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Benefits of Managed Identity</h3>
+                    <ul class="security-list">
+                        <li><strong>No Key Management:</strong> No key storage/rotation burden</li>
+                        <li><strong>Least Privilege:</strong> Access via RBAC roles</li>
+                        <li><strong>Compliance:</strong> Stronger compliance posture (SOC, GDPR, HIPAA)</li>
+                        <li><strong>Security:</strong> Reduces attack surface and credential exposure</li>
+                    </ul>
+                </div>
+
+                <div class="hands-on">
+                    <h4>🎯 Hands-on Practice</h4>
+                    <ol>
+                        <li>Enable system-assigned managed identity for an Azure Function</li>
+                        <li>Grant access to an AI resource (Cognitive Services Contributor role)</li>
+                        <li>Call the AI endpoint without embedding an API key</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tools Comparison Tab -->
+        <div id="comparison" class="tab-content">
+            <div class="comparison-matrix">
+                <h2>🔍 Monitoring Tools Comparison Matrix</h2>
+                <p>Choose the right monitoring tool for your needs</p>
+                
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th>Tool</th>
+                            <th>Primary Use</th>
+                            <th>Key Features</th>
+                            <th>Best For</th>
+                            <th>Integration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="tool-name">Azure Monitor</td>
+                            <td>Infrastructure monitoring</td>
+                            <td>
+                                <span class="feature-tag">Metrics</span>
+                                <span class="feature-tag">Alerts</span>
+                                <span class="feature-tag">Dashboards</span>
+                            </td>
+                            <td>System health, performance metrics</td>
+                            <td>All Azure services</td>
+                        </tr>
+                        <tr>
+                            <td class="tool-name">Application Insights</td>
+                            <td>Application monitoring</td>
+                            <td>
+                                <span class="feature-tag">Telemetry</span>
+                                <span class="feature-tag">Dependencies</span>
+                                <span class="feature-tag">Custom Events</span>
+                            </td>
+                            <td>AI workload debugging, user experience</td>
+                            <td>Azure AI services, custom apps</td>
+                        </tr>
+                        <tr>
+                            <td class="tool-name">Diagnostics Logs</td>
+                            <td>Log analysis</td>
+                            <td>
+                                <span class="feature-tag">KQL Queries</span>
+                                <span class="feature-tag">Log Analytics</span>
+                                <span class="feature-tag">Retention</span>
+                            </td>
+                            <td>Detailed troubleshooting, compliance</td>
+                            <td>Log Analytics Workspace</td>
+                        </tr>
+                        <tr>
+                            <td class="tool-name">Cost Management</td>
+                            <td>Cost tracking</td>
+                            <td>
+                                <span class="feature-tag">Budgets</span>
+                                <span class="feature-tag">Forecasting</span>
+                                <span class="feature-tag">Tagging</span>
+                            </td>
+                            <td>Budget control, cost optimization</td>
+                            <td>All Azure resources</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-card">
+                <h3>🎯 Monitoring Strategy Decision Matrix</h3>
+                <div class="reference-grid">
+                    <div class="reference-item">
+                        <h4>Use Azure Monitor When:</h4>
+                        <ul>
+                            <li>Monitoring infrastructure health</li>
+                            <li>Setting up basic alerts</li>
+                            <li>Creating operational dashboards</li>
+                            <li>Tracking resource utilization</li>
+                        </ul>
+                    </div>
+                    <div class="reference-item">
+                        <h4>Use App Insights When:</h4>
+                        <ul>
+                            <li>Debugging AI application issues</li>
+                            <li>Tracking user interactions</li>
+                            <li>Monitoring custom business metrics</li>
+                            <li>Analyzing performance bottlenecks</li>
+                        </ul>
+                    </div>
+                    <div class="reference-item">
+                        <h4>Use Diagnostics Logs When:</h4>
+                        <ul>
+                            <li>Detailed troubleshooting needed</li>
+                            <li>Compliance auditing required</li>
+                            <li>Custom log analysis</li>
+                            <li>Long-term log retention</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exam Tricks Tab -->
+        <div id="exam-tricks" class="tab-content">
+            <div class="exam-tricks">
+                <h2>🎯 Exam Trick Questions & Common Pitfalls</h2>
+                
+                <div class="trick-question">
+                    <h4>❓ Question: Which tool should you use to debug why an AI application is responding slowly?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Application Insights<br>
+                        <strong>Trick:</strong> Don't choose Azure Monitor for application-level debugging - App Insights provides deep telemetry and dependency tracking for AI workloads.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: What's the most secure way to authenticate an Azure Function to an AI service?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Managed Identity<br>
+                        <strong>Trick:</strong> Don't choose API keys - Managed Identity eliminates key management and provides better security with RBAC integration.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: How should you store API keys for production applications?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Azure Key Vault<br>
+                        <strong>Trick:</strong> Never store keys in configuration files or environment variables - Key Vault provides secure, centralized key management.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: Which metric is most important for tracking OpenAI model costs?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Token consumption (input + output tokens)<br>
+                        <strong>Trick:</strong> Don't focus on request count - OpenAI billing is based on token usage, not the number of requests.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: What's the best way to prevent runaway costs from an AI service?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Set usage quotas and budget alerts<br>
+                        <strong>Trick:</strong> Don't rely only on monitoring - proactive cost controls like quotas and budgets prevent unexpected charges.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: Which tool provides the most detailed log analysis for troubleshooting?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Diagnostics Logs with KQL queries<br>
+                        <strong>Trick:</strong> Don't choose basic monitoring tools - Diagnostics Logs with KQL provide the deepest analysis capabilities.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: How often should you rotate API keys for security?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Every 90 days (or as per security policy)<br>
+                        <strong>Trick:</strong> Regular key rotation is essential for security - don't leave keys unchanged indefinitely.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: What's the difference between primary and secondary API keys?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Both are valid - secondary is for key rotation without downtime<br>
+                        <strong>Trick:</strong> Don't think one is for read-only access - both keys have the same permissions and are used for seamless rotation.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Reference Tab -->
+        <div id="quick-ref" class="tab-content">
+            <div class="quick-reference">
+                <h2>⚡ Quick Reference Guide</h2>
+                <p>Essential monitoring and security information at a glance</p>
+                
+                <div class="reference-grid">
+                    <div class="reference-item">
+                        <h4>📊 Monitoring Tools</h4>
+                        <p><strong>Azure Monitor:</strong> Infrastructure metrics, alerts<br>
+                        <strong>App Insights:</strong> Application telemetry, debugging<br>
+                        <strong>Diagnostics Logs:</strong> Detailed log analysis with KQL<br>
+                        <strong>Cost Management:</strong> Budget tracking, forecasting</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>📈 Key Metrics</h4>
+                        <p><strong>Performance:</strong> Latency, throughput, error rates<br>
+                        <strong>Cost:</strong> Token consumption, quota usage<br>
+                        <strong>Security:</strong> Authentication failures, access patterns<br>
+                        <strong>Usage:</strong> API calls per app/user</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>🔐 Authentication</h4>
+                        <p><strong>API Keys:</strong> Simple, less secure, POCs only<br>
+                        <strong>Managed Identity:</strong> Recommended, no key management<br>
+                        <strong>Key Vault:</strong> Secure key storage<br>
+                        <strong>RBAC:</strong> Role-based access control</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>💰 Cost Control</h4>
+                        <p><strong>Budgets:</strong> Monthly spending limits<br>
+                        <strong>Quotas:</strong> Request rate limits<br>
+                        <strong>Tags:</strong> Cost tracking by team/project<br>
+                        <strong>Alerts:</strong> Notify when limits exceeded</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>🔑 Key Management</h4>
+                        <p><strong>Storage:</strong> Azure Key Vault only<br>
+                        <strong>Rotation:</strong> Every 90 days<br>
+                        <strong>Access:</strong> Least privilege principle<br>
+                        <strong>Backup:</strong> Primary + Secondary keys</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>🎯 Best Practices</h4>
+                        <p><strong>Security:</strong> Use Managed Identity when possible<br>
+                        <strong>Monitoring:</strong> Set up alerts for critical metrics<br>
+                        <strong>Cost:</strong> Tag resources for tracking<br>
+                        <strong>Compliance:</strong> Enable audit logging</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                    <h3>🎯 Monitoring Checklist</h3>
+                    <div class="code-block">
+                        ✅ Enable Application Insights for AI services<br>
+                        ✅ Set up budget alerts and usage quotas<br>
+                        ✅ Store API keys in Azure Key Vault<br>
+                        ✅ Use Managed Identity for authentication<br>
+                        ✅ Configure diagnostic logging<br>
+                        ✅ Set up performance and error alerts<br>
+                        ✅ Tag resources for cost tracking<br>
+                        ✅ Plan regular key rotation schedule
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all nav tabs
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked nav tab
+            event.target.classList.add('active');
+        }
+
+        // Add smooth scrolling for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

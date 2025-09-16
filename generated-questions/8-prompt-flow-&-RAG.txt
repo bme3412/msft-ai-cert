@@ -1,0 +1,118 @@
+Prompt Flow & RAG
+Q1. Prompt Flow Basics
+
+You are building a generative AI solution in Azure AI Foundry. You want a visual + code workflow tool that lets you chain preprocessing → GPT call → content safety filter → post-processing. Which feature should you use?
+
+A. Azure OpenAI Playground
+B. Prompt Flow
+C. Azure DevOps pipeline
+D. Azure Key Vault
+
+✅ Answer: B – Prompt Flow is the visual + code orchestration tool.
+
+Q2. RAG Pattern Scenario
+
+An HR team needs a chatbot that answers questions about vacation policies using their internal PDF handbook. Which architecture should you implement?
+
+A. Fine-tune GPT-4 Turbo on internet HR blogs.
+B. Use GPT-3.5 zero-shot prompts.
+C. Store handbook in Blob → index with AI Search → use embeddings → ground GPT-4 responses.
+D. Generate policy infographics with DALL·E.
+
+✅ Answer: C – This describes the RAG pipeline.
+
+Q3. Evaluation Metrics
+
+Your team wants to compare GPT-3.5 vs GPT-4 Turbo for summarization tasks. Which evaluation metric is most appropriate?
+
+A. BLEU / ROUGE scores
+B. Token consumption
+C. Cost per 1,000 tokens
+D. DALL·E variation counts
+
+✅ Answer: A – BLEU/ROUGE are standard for text summarization quality.
+
+Q4. Safety in Prompt Flows
+
+Which feature would you add to a Prompt Flow to prevent jailbreak attempts and harmful responses?
+
+A. Increase temperature to 1.0
+B. Add Prompt Shields + Content Safety filters
+C. Deploy GPT-4 Vision
+D. Store queries in Blob
+
+✅ Answer: B – Prompt Shields + Content Safety mitigate harmful outputs.
+
+Q5. Trick Question – Hallucinations
+
+During testing, GPT-3.5 makes up answers about compliance rules that don’t exist. How do you best fix this?
+
+A. Increase model creativity with higher temperature.
+B. Fine-tune GPT-3.5 on random internet compliance data.
+C. Implement RAG with Azure AI Search grounding.
+D. Switch to DALL·E for text generation.
+
+✅ Answer: C – RAG grounding reduces hallucinations by providing trusted data.
+
+Q6. Prompt Flow Hands-On
+
+Which of the following is the correct order in a simple Prompt Flow pipeline?
+
+A. Model call → moderation → query → output
+B. User query → GPT-4 call → output
+C. User query → moderation filter → GPT-4 → final response
+D. Embeddings → DALL·E → moderation
+
+✅ Answer: C – Input moderation → GPT-4 → final response is the correct safe flow.
+
+Q7. RAG Retrieval
+
+What role do embeddings play in a RAG pipeline?
+
+A. Generate the final answer text.
+B. Convert documents and queries into vector space for semantic similarity.
+C. Store API keys securely.
+D. Create images from text.
+
+✅ Answer: B – Embeddings enable semantic search & retrieval.
+
+Q8. Evaluation Tools
+
+Which tools can you use to evaluate model outputs in Azure AI Foundry?
+
+A. Azure Key Vault + Blob Storage
+B. AI Studio Evaluation Dashboard + Azure AI Evaluation SDK
+C. Azure Monitor + App Insights
+D. DALL·E Playground
+
+✅ Answer: B – The Evaluation SDK & dashboard are built for LLM evaluation.
+
+Q9. Complex Scenario
+
+A customer support copilot must:
+
+Use company manuals as context.
+
+Prevent harmful responses.
+
+Be evaluated for coherence and fluency.
+
+Which combination of features should you implement?
+
+A. Prompt Flow + RAG with AI Search + Evaluation SDK
+B. Fine-tuned GPT-3.5 only
+C. DALL·E for visualizations + GPT-4 Turbo
+D. Cosmos DB only
+
+✅ Answer: A – Prompt Flow orchestrates → RAG grounds responses → Evaluation SDK measures quality.
+
+Q10. Curveball — Scaling the Flow
+
+You deploy a Prompt Flow solution for 10,000 daily users. Which is the best optimization approach?
+
+A. Switch all queries to GPT-4 Turbo only.
+B. Route lightweight FAQ queries to GPT-3.5 and complex cases to GPT-4 Turbo.
+C. Replace embeddings with random keyword search.
+D. Disable safety filters to reduce latency.
+
+✅ Answer: B – Hybrid model routing balances cost and accuracy.

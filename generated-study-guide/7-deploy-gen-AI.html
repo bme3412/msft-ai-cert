@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deploy Generative AI Models - Study Guide</title>
+    <style>
+        :root {
+            --primary: #0078d4;
+            --secondary: #106ebe;
+            --accent: #00bcf2;
+            --success: #107c10;
+            --warning: #ff8c00;
+            --danger: #d13438;
+            --dark: #323130;
+            --light: #f3f2f1;
+            --text: #323130;
+            --text-muted: #605e5c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 120, 212, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 12px;
+            padding: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-tab.active {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-tab:hover:not(.active) {
+            background: var(--light);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-icon {
+            font-size: 2.5rem;
+            margin-right: 15px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .subsection {
+            margin-bottom: 25px;
+        }
+
+        .subsection h3 {
+            color: var(--secondary);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .model-list, .use-case-list, .consideration-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .model-list li, .use-case-list li, .consideration-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .model-list li:before {
+            content: "🧠";
+            position: absolute;
+            left: 0;
+        }
+
+        .use-case-list li:before {
+            content: "💡";
+            position: absolute;
+            left: 0;
+        }
+
+        .consideration-list li:before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+        }
+
+        .hands-on {
+            background: linear-gradient(135deg, #e8f4fd 0%, #f0f8ff 100%);
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .hands-on h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .hands-on ol {
+            padding-left: 20px;
+        }
+
+        .hands-on li {
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .comparison-matrix {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .matrix-table th,
+        .matrix-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .matrix-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .matrix-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .model-name {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .feature-tag {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin: 2px;
+        }
+
+        .exam-tricks {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 2px solid var(--warning);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .exam-tricks h2 {
+            color: var(--warning);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .trick-question {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--warning);
+        }
+
+        .trick-question h4 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .trick-answer {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            border-left: 3px solid var(--success);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .quick-reference {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .quick-reference h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .reference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .reference-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .reference-item h4 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .best-practice {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 2px solid var(--success);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .best-practice h4 {
+            color: var(--success);
+            margin-bottom: 10px;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .model-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .model-card h5 {
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .capability-card {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .capability-card h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .cost-comparison {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 2px solid var(--warning);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .cost-comparison h4 {
+            color: var(--warning);
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .nav-tab {
+                margin-bottom: 5px;
+            }
+
+            .matrix-table {
+                font-size: 0.9rem;
+            }
+
+            .matrix-table th,
+            .matrix-table td {
+                padding: 10px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 Deploy Generative AI Models</h1>
+            <p>Comprehensive guide for deploying and managing generative AI models</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('models-guide')">Models Guide</button>
+            <button class="nav-tab" onclick="showTab('comparison')">Models Comparison</button>
+            <button class="nav-tab" onclick="showTab('exam-tricks')">Exam Tricks</button>
+            <button class="nav-tab" onclick="showTab('quick-ref')">Quick Reference</button>
+        </div>
+
+        <!-- Models Guide Tab -->
+        <div id="models-guide" class="tab-content active">
+            <!-- GPT-4 / GPT-4 Turbo -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">🧠</div>
+                    <div class="section-title">1. GPT-4 / GPT-4 Turbo</div>
+                </div>
+
+                <div class="subsection">
+                    <h3>What They Are</h3>
+                    <div class="model-card">
+                        <h5>🚀 GPT-4</h5>
+                        <p>Most capable model, designed for deep reasoning, summarization, copilots</p>
+                    </div>
+                    <div class="model-card">
+                        <h5>⚡ GPT-4 Turbo</h5>
+                        <p>Optimized version: cheaper, faster, longer context (128K tokens in some versions)</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Use Cases</h3>
+                    <ul class="use-case-list">
+                        <li><strong>Complex Multi-turn Chatbots:</strong> Customer support, HR copilots</li>
+                        <li><strong>Document Summarization:</strong> Financial, legal, medical documents</li>
+                        <li><strong>Code Generation:</strong> Debugging assistants, code completion</li>
+                        <li><strong>Domain-specific Copilots:</strong> Analyst assistant, healthcare Q&A</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Considerations</h3>
+                    <ul class="consideration-list">
+                        <li><strong>Cost:</strong> Higher cost than GPT-3.5, but better accuracy</li>
+                        <li><strong>Production Preference:</strong> Turbo models are preferred for production (cost-efficient + extended context)</li>
+                        <li><strong>Context Length:</strong> Extended context window for longer documents</li>
+                        <li><strong>Performance:</strong> Superior reasoning and complex task handling</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- GPT-3.5 -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">⚡</div>
+                    <div class="section-title">2. GPT-3.5</div>
+                </div>
+
+                <div class="subsection">
+                    <h3>What It Is</h3>
+                    <div class="model-card">
+                        <h5>💡 GPT-3.5</h5>
+                        <p>Lightweight, lower-cost model ideal for high-volume, less complex tasks</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Use Cases</h3>
+                    <ul class="use-case-list">
+                        <li><strong>Simple Q&A Bots:</strong> FAQ assistants, basic customer support</li>
+                        <li><strong>Content Drafting:</strong> Email replies, blog outlines, social media posts</li>
+                        <li><strong>Pre-processing Tasks:</strong> Classify text before feeding into GPT-4</li>
+                        <li><strong>High-Volume Applications:</strong> Bulk processing, simple automation</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Considerations</h3>
+                    <ul class="consideration-list">
+                        <li><strong>Accuracy:</strong> Lower accuracy in nuanced reasoning compared to GPT-4</li>
+                        <li><strong>Cost-Effectiveness:</strong> Cost-effective for workloads with millions of requests/day</li>
+                        <li><strong>Speed:</strong> Faster response times for simple tasks</li>
+                        <li><strong>Scalability:</strong> Better suited for high-volume, low-complexity tasks</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Embeddings Models -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">🔍</div>
+                    <div class="section-title">3. Embeddings Models</div>
+                </div>
+
+                <div class="subsection">
+                    <h3>What They Are</h3>
+                    <div class="model-card">
+                        <h5>🎯 Embeddings</h5>
+                        <p>Models that convert text/images → vector representations (embeddings) for semantic similarity, clustering, retrieval</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Use Cases</h3>
+                    <ul class="use-case-list">
+                        <li><strong>RAG (Retrieval-Augmented Generation):</strong> Index documents → query embeddings → provide context to GPT</li>
+                        <li><strong>Semantic Search:</strong> Search "How do I reset my password?" → retrieves correct FAQ</li>
+                        <li><strong>Clustering:</strong> Grouping customer feedback by themes</li>
+                        <li><strong>Recommendation Systems:</strong> Similar product/content recommendations</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Considerations</h3>
+                    <ul class="consideration-list">
+                        <li><strong>Purpose:</strong> Embeddings ≠ text generation. They support GPT by providing grounding</li>
+                        <li><strong>Storage Requirements:</strong> Requires Azure AI Search or vector database to store/query embeddings</li>
+                        <li><strong>Integration:</strong> Must be combined with other models for complete solutions</li>
+                        <li><strong>Performance:</strong> Critical for RAG pattern effectiveness</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- DALL·E -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">🎨</div>
+                    <div class="section-title">4. DALL·E</div>
+                </div>
+
+                <div class="subsection">
+                    <h3>What It Is</h3>
+                    <div class="model-card">
+                        <h5>🖼️ DALL·E</h5>
+                        <p>Generative model for text-to-image with inpainting & editing capabilities (modify existing images)</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Use Cases</h3>
+                    <ul class="use-case-list">
+                        <li><strong>Marketing:</strong> Create ad campaign visuals, promotional materials</li>
+                        <li><strong>E-commerce:</strong> Auto-generate product mockups, lifestyle images</li>
+                        <li><strong>Creative Tools:</strong> Image variations, artistic designs, concept art</li>
+                        <li><strong>Content Creation:</strong> Blog illustrations, social media visuals</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Considerations</h3>
+                    <ul class="consideration-list">
+                        <li><strong>Pricing:</strong> Images cost per request (size-based pricing)</li>
+                        <li><strong>Content Moderation:</strong> Governance applies (no violent/sexual imagery)</li>
+                        <li><strong>Quality:</strong> Output quality varies based on prompt specificity</li>
+                        <li><strong>Usage Rights:</strong> Consider licensing and usage rights for generated images</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Multimodal (GPT-4 with Vision) -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">🖼️</div>
+                    <div class="section-title">5. Multimodal (GPT-4 with Vision)</div>
+                </div>
+
+                <div class="subsection">
+                    <h3>What It Is</h3>
+                    <div class="model-card">
+                        <h5>👁️ GPT-4 with Vision</h5>
+                        <p>GPT-4 model that accepts text + images as input and can generate text output from multimodal input</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Use Cases</h3>
+                    <ul class="use-case-list">
+                        <li><strong>Product Analysis:</strong> Analyze product defects from photos</li>
+                        <li><strong>Accessibility:</strong> Captioning images for accessibility tools</li>
+                        <li><strong>Data Interpretation:</strong> Interpret charts/graphs in reports</li>
+                        <li><strong>Healthcare:</strong> Analyze medical scans alongside doctor's notes</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Considerations</h3>
+                    <ul class="consideration-list">
+                        <li><strong>Output Limitation:</strong> Output is still text only (not generating new images)</li>
+                        <li><strong>Purpose:</strong> Useful for image understanding, not creative image generation (DALL·E is for that)</li>
+                        <li><strong>Integration:</strong> Combines visual understanding with text reasoning</li>
+                        <li><strong>Use Cases:</strong> Analysis and interpretation, not creation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Best Practices -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">📌</div>
+                    <div class="section-title">Best Practices</div>
+                </div>
+
+                <div class="best-practice">
+                    <h4>🎯 Model Selection Strategy</h4>
+                    <ul>
+                        <li><strong>GPT-4 Turbo:</strong> Copilots, deep reasoning, summarization</li>
+                        <li><strong>GPT-3.5:</strong> Bulk/low-cost tasks, high-volume applications</li>
+                        <li><strong>Embeddings:</strong> RAG & semantic search, knowledge retrieval</li>
+                        <li><strong>DALL·E:</strong> Text → image generation, creative content</li>
+                        <li><strong>GPT-4V:</strong> Image understanding + text reasoning</li>
+                    </ul>
+                </div>
+
+                <div class="cost-comparison">
+                    <h4>💰 Cost Optimization Strategy</h4>
+                    <ul>
+                        <li><strong>Start Cheap → Scale Up:</strong> Prototype with GPT-3.5, move to GPT-4 Turbo if accuracy required</li>
+                        <li><strong>Model Combination:</strong> Use different models for different parts of your solution</li>
+                        <li><strong>Context Optimization:</strong> Use appropriate context lengths to minimize costs</li>
+                        <li><strong>Batch Processing:</strong> Group similar requests to optimize API calls</li>
+                    </ul>
+                </div>
+
+                <div class="capability-card">
+                    <h4>🔗 Model Combination Strategies</h4>
+                    <ul>
+                        <li><strong>GPT-4 for Reasoning + Embeddings for Retrieval + DALL·E for Visuals</strong></li>
+                        <li><strong>GPT-3.5 for Pre-processing + GPT-4 for Final Output</strong></li>
+                        <li><strong>Embeddings for Search + GPT-4 for Generation + DALL·E for Illustrations</strong></li>
+                        <li><strong>GPT-4V for Analysis + GPT-4 for Explanation + DALL·E for Visualizations</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Models Comparison Tab -->
+        <div id="comparison" class="tab-content">
+            <div class="comparison-matrix">
+                <h2>🔍 Generative AI Models Comparison Matrix</h2>
+                <p>Choose the right model for your specific use case</p>
+                
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Primary Use</th>
+                            <th>Key Features</th>
+                            <th>Best For</th>
+                            <th>Cost Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="model-name">GPT-4</td>
+                            <td>Complex reasoning</td>
+                            <td>
+                                <span class="feature-tag">Deep Reasoning</span>
+                                <span class="feature-tag">High Accuracy</span>
+                                <span class="feature-tag">Complex Tasks</span>
+                            </td>
+                            <td>Copilots, summarization, complex Q&A</td>
+                            <td>High</td>
+                        </tr>
+                        <tr>
+                            <td class="model-name">GPT-4 Turbo</td>
+                            <td>Production reasoning</td>
+                            <td>
+                                <span class="feature-tag">Cost Efficient</span>
+                                <span class="feature-tag">Extended Context</span>
+                                <span class="feature-tag">Faster</span>
+                            </td>
+                            <td>Production copilots, long documents</td>
+                            <td>Medium-High</td>
+                        </tr>
+                        <tr>
+                            <td class="model-name">GPT-3.5</td>
+                            <td>High-volume tasks</td>
+                            <td>
+                                <span class="feature-tag">Low Cost</span>
+                                <span class="feature-tag">Fast</span>
+                                <span class="feature-tag">Scalable</span>
+                            </td>
+                            <td>Simple Q&A, bulk processing</td>
+                            <td>Low</td>
+                        </tr>
+                        <tr>
+                            <td class="model-name">Embeddings</td>
+                            <td>Semantic search</td>
+                            <td>
+                                <span class="feature-tag">Vector Search</span>
+                                <span class="feature-tag">RAG Support</span>
+                                <span class="feature-tag">Clustering</span>
+                            </td>
+                            <td>RAG patterns, semantic search</td>
+                            <td>Low</td>
+                        </tr>
+                        <tr>
+                            <td class="model-name">DALL·E</td>
+                            <td>Image generation</td>
+                            <td>
+                                <span class="feature-tag">Text-to-Image</span>
+                                <span class="feature-tag">Inpainting</span>
+                                <span class="feature-tag">Creative</span>
+                            </td>
+                            <td>Marketing visuals, creative content</td>
+                            <td>Medium</td>
+                        </tr>
+                        <tr>
+                            <td class="model-name">GPT-4V</td>
+                            <td>Multimodal analysis</td>
+                            <td>
+                                <span class="feature-tag">Image + Text</span>
+                                <span class="feature-tag">Analysis</span>
+                                <span class="feature-tag">Understanding</span>
+                            </td>
+                            <td>Image analysis, accessibility</td>
+                            <td>High</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-card">
+                <h3>🎯 Model Selection Decision Matrix</h3>
+                <div class="reference-grid">
+                    <div class="reference-item">
+                        <h4>Use GPT-4 When:</h4>
+                        <ul>
+                            <li>Need highest accuracy and reasoning</li>
+                            <li>Complex multi-turn conversations</li>
+                            <li>Domain-specific expertise required</li>
+                            <li>Cost is not the primary concern</li>
+                        </ul>
+                    </div>
+                    <div class="reference-item">
+                        <h4>Use GPT-3.5 When:</h4>
+                        <ul>
+                            <li>High-volume, simple tasks</li>
+                            <li>Cost optimization is critical</li>
+                            <li>Basic Q&A and content generation</li>
+                            <li>Prototyping and experimentation</li>
+                        </ul>
+                    </div>
+                    <div class="reference-item">
+                        <h4>Use Embeddings When:</h4>
+                        <ul>
+                            <li>Implementing RAG patterns</li>
+                            <li>Need semantic search capabilities</li>
+                            <li>Working with knowledge bases</li>
+                            <li>Building recommendation systems</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exam Tricks Tab -->
+        <div id="exam-tricks" class="tab-content">
+            <div class="exam-tricks">
+                <h2>🎯 Exam Trick Questions & Common Pitfalls</h2>
+                
+                <div class="trick-question">
+                    <h4>❓ Question: Which model is best for implementing RAG (Retrieval-Augmented Generation)?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Embeddings models + GPT-4<br>
+                        <strong>Trick:</strong> Don't choose just GPT-4 - RAG requires embeddings for retrieval AND GPT-4 for generation.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: What's the main difference between GPT-4 and GPT-4 Turbo?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> GPT-4 Turbo is cheaper, faster, and has longer context<br>
+                        <strong>Trick:</strong> Don't assume Turbo is just faster - it's optimized for production with cost and context improvements.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: Which model should you use for high-volume, simple Q&A tasks?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> GPT-3.5<br>
+                        <strong>Trick:</strong> Don't choose GPT-4 for simple tasks - GPT-3.5 is more cost-effective for high-volume, low-complexity work.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: What's the key limitation of DALL·E compared to GPT-4 with Vision?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> DALL·E generates images, GPT-4V analyzes images but outputs text<br>
+                        <strong>Trick:</strong> Don't confuse their purposes - DALL·E creates images, GPT-4V understands images.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: Which model is most cost-effective for prototyping AI solutions?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> GPT-3.5<br>
+                        <strong>Trick:</strong> Don't start with expensive models - use GPT-3.5 for prototyping, then scale up to GPT-4 if needed.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: What's the primary use case for embeddings models?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Semantic search and RAG patterns<br>
+                        <strong>Trick:</strong> Don't choose text generation - embeddings are for search and retrieval, not generation.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: Which model combination is best for a marketing campaign generator?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> GPT-4 for text + DALL·E for visuals<br>
+                        <strong>Trick:</strong> Don't choose multimodal models alone - marketing needs both text generation and image creation.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: What's the main advantage of GPT-4 Turbo over GPT-4 for production?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Cost efficiency and extended context window<br>
+                        <strong>Trick:</strong> Don't focus only on speed - the key advantages are cost and context length for production workloads.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Reference Tab -->
+        <div id="quick-ref" class="tab-content">
+            <div class="quick-reference">
+                <h2>⚡ Quick Reference Guide</h2>
+                <p>Essential generative AI model information at a glance</p>
+                
+                <div class="reference-grid">
+                    <div class="reference-item">
+                        <h4>🧠 Text Models</h4>
+                        <p><strong>GPT-4:</strong> Complex reasoning, highest accuracy<br>
+                        <strong>GPT-4 Turbo:</strong> Production-optimized, cost-efficient<br>
+                        <strong>GPT-3.5:</strong> High-volume, low-cost tasks<br>
+                        <strong>Best Practice:</strong> Start with GPT-3.5, scale to GPT-4</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>🔍 Search Models</h4>
+                        <p><strong>Embeddings:</strong> Vector representations for search<br>
+                        <strong>Use Cases:</strong> RAG patterns, semantic search<br>
+                        <strong>Storage:</strong> Requires vector database or AI Search<br>
+                        <strong>Integration:</strong> Must combine with text models</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>🎨 Image Models</h4>
+                        <p><strong>DALL·E:</strong> Text-to-image generation<br>
+                        <strong>GPT-4V:</strong> Image analysis and understanding<br>
+                        <strong>DALL·E Features:</strong> Inpainting, editing capabilities<br>
+                        <strong>GPT-4V Output:</strong> Text descriptions, not images</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>💰 Cost Strategy</h4>
+                        <p><strong>Prototyping:</strong> Start with GPT-3.5<br>
+                        <strong>Production:</strong> Use GPT-4 Turbo<br>
+                        <strong>High Volume:</strong> Optimize with GPT-3.5<br>
+                        <strong>Complex Tasks:</strong> Upgrade to GPT-4</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>🔗 Model Combinations</h4>
+                        <p><strong>RAG:</strong> Embeddings + GPT-4<br>
+                        <strong>Marketing:</strong> GPT-4 + DALL·E<br>
+                        <strong>Analysis:</strong> GPT-4V + GPT-4<br>
+                        <strong>Processing:</strong> GPT-3.5 + GPT-4</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>🎯 Selection Criteria</h4>
+                        <p><strong>Complexity:</strong> Simple → GPT-3.5, Complex → GPT-4<br>
+                        <strong>Volume:</strong> High → GPT-3.5, Low → GPT-4<br>
+                        <strong>Cost:</strong> Budget → GPT-3.5, Quality → GPT-4<br>
+                        <strong>Context:</strong> Long → GPT-4 Turbo, Short → GPT-3.5</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                    <h3>🎯 Model Deployment Checklist</h3>
+                    <div class="code-block">
+                        ✅ Identify use case complexity and requirements<br>
+                        ✅ Choose appropriate model based on cost/accuracy trade-offs<br>
+                        ✅ Consider context length requirements<br>
+                        ✅ Plan for model combinations (RAG, multimodal)<br>
+                        ✅ Set up proper storage for embeddings (if needed)<br>
+                        ✅ Implement cost monitoring and optimization<br>
+                        ✅ Test model performance with real data<br>
+                        ✅ Plan for scaling and load balancing<br>
+                        ✅ Configure content moderation and safety<br>
+                        ✅ Monitor usage patterns and optimize costs
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all nav tabs
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked nav tab
+            event.target.classList.add('active');
+        }
+
+        // Add smooth scrolling for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

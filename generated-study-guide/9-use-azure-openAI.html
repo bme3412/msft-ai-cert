@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Azure OpenAI in Foundry Models - Study Guide</title>
+    <style>
+        :root {
+            --primary: #0078d4;
+            --secondary: #106ebe;
+            --accent: #00bcf2;
+            --success: #107c10;
+            --warning: #ff8c00;
+            --danger: #d13438;
+            --dark: #323130;
+            --light: #f3f2f1;
+            --text: #323130;
+            --text-muted: #605e5c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 120, 212, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 12px;
+            padding: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-tab.active {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-tab:hover:not(.active) {
+            background: var(--light);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-icon {
+            font-size: 2.5rem;
+            margin-right: 15px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .subsection {
+            margin-bottom: 25px;
+        }
+
+        .subsection h3 {
+            color: var(--secondary);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .provision-list, .model-list, .prompt-list, .assistant-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .provision-list li, .model-list li, .prompt-list li, .assistant-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .provision-list li:before {
+            content: "1️⃣";
+            position: absolute;
+            left: 0;
+        }
+
+        .model-list li:before {
+            content: "2️⃣";
+            position: absolute;
+            left: 0;
+        }
+
+        .prompt-list li:before {
+            content: "3️⃣";
+            position: absolute;
+            left: 0;
+        }
+
+        .assistant-list li:before {
+            content: "4️⃣";
+            position: absolute;
+            left: 0;
+        }
+
+        .hands-on {
+            background: linear-gradient(135deg, #e8f4fd 0%, #f0f8ff 100%);
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .hands-on h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .hands-on ol {
+            padding-left: 20px;
+        }
+
+        .hands-on li {
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .comparison-matrix {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .matrix-table th,
+        .matrix-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .matrix-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .matrix-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .model-name {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .feature-tag {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin: 2px;
+        }
+
+        .exam-tricks {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 2px solid var(--warning);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .exam-tricks h2 {
+            color: var(--warning);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .trick-question {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--warning);
+        }
+
+        .trick-question h4 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .trick-answer {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            border-left: 3px solid var(--success);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .quick-reference {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .quick-reference h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .reference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .reference-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .reference-item h4 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .best-practice {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 2px solid var(--success);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .best-practice h4 {
+            color: var(--success);
+            margin-bottom: 10px;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .concept-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .concept-card h5 {
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .quota-card {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .quota-card h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .api-card {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 2px solid var(--warning);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .api-card h4 {
+            color: var(--warning);
+            margin-bottom: 15px;
+        }
+
+        .exam-trigger {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            border: 2px solid var(--danger);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .exam-trigger h4 {
+            color: var(--danger);
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .nav-tab {
+                margin-bottom: 5px;
+            }
+
+            .matrix-table {
+                font-size: 0.9rem;
+            }
+
+            .matrix-table th,
+            .matrix-table td {
+                padding: 10px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Use Azure OpenAI in Foundry Models</h1>
+            <p>Comprehensive guide for provisioning and using Azure OpenAI services</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('implementation-guide')">Implementation Guide</button>
+            <button class="nav-tab" onclick="showTab('comparison')">Models Comparison</button>
+            <button class="nav-tab" onclick="showTab('exam-tricks')">Exam Tricks</button>
+            <button class="nav-tab" onclick="showTab('quick-ref')">Quick Reference</button>
+        </div>
+
+        <!-- Implementation Guide Tab -->
+        <div id="implementation-guide" class="tab-content active">
+            <!-- Provision Azure OpenAI -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">1️⃣</div>
+                    <div class="section-title">Provision Azure OpenAI</div>
+                </div>
+
+                <div class="subsection">
+                    <h3>What It Means</h3>
+                    <div class="concept-card">
+                        <h5>🏗️ Foundry Models Resource</h5>
+                        <p>You must first create a Foundry Models resource in Azure AI Foundry. This provides access to Azure-hosted OpenAI foundation models (GPT, embeddings, DALL·E).</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Provisioning Steps</h3>
+                    <ul class="provision-list">
+                        <li><strong>Azure Portal:</strong> Create Azure AI Foundry resource</li>
+                        <li><strong>Hub/Project Setup:</strong> Within hub/project → provision OpenAI model resource</li>
+                        <li><strong>Resource Configuration:</strong> Set up proper access and permissions</li>
+                        <li><strong>Endpoint Configuration:</strong> Configure API endpoints and authentication</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Quota Assignment</h3>
+                    <div class="quota-card">
+                        <h4>📊 Required Quotas</h4>
+                        <ul>
+                            <li><strong>GPT-4 / GPT-4 Turbo:</strong> High-performance text generation</li>
+                            <li><strong>GPT-3.5:</strong> Cost-effective text generation</li>
+                            <li><strong>Embeddings:</strong> Vector representations for search</li>
+                            <li><strong>DALL·E:</strong> Text-to-image generation</li>
+                            <li><strong>GPT-4V (Vision):</strong> Multimodal image + text processing</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="best-practice">
+                    <h4>💡 Provisioning Best Practices</h4>
+                    <ul>
+                        <li><strong>Regional Availability:</strong> Check model availability by region (not all SKUs are in all regions)</li>
+                        <li><strong>Quota Planning:</strong> Request quota in advance — GPT-4 may need approval</li>
+                        <li><strong>Cost Tracking:</strong> Use tags to track cost (model: GPT-4 vs GPT-3.5)</li>
+                        <li><strong>Resource Naming:</strong> Use consistent naming conventions for easy management</li>
+                    </ul>
+                </div>
+
+                <div class="hands-on">
+                    <h4>🎯 Hands-on Practice</h4>
+                    <ol>
+                        <li>Create a Foundry Models resource with GPT-4 and embeddings quota</li>
+                        <li>Configure proper access controls and permissions</li>
+                        <li>Set up cost tracking tags for different model types</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Select & Deploy Models -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">2️⃣</div>
+                    <div class="section-title">Select & Deploy Models</div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Available Models</h3>
+                    <div class="quota-card">
+                        <h4>🚀 GPT-4 Turbo</h4>
+                        <ul class="model-list">
+                            <li><strong>Best For:</strong> Complex reasoning, chat apps, summarization</li>
+                            <li><strong>Advantages:</strong> Lower latency, cheaper, extended context windows</li>
+                            <li><strong>Use Cases:</strong> Production applications, complex multi-turn conversations</li>
+                        </ul>
+                    </div>
+
+                    <div class="quota-card">
+                        <h4>⚡ GPT-3.5</h4>
+                        <ul class="model-list">
+                            <li><strong>Best For:</strong> Cost-efficient for lightweight tasks (FAQ bots, drafting)</li>
+                            <li><strong>Advantages:</strong> Useful for high-volume, non-critical use cases</li>
+                            <li><strong>Use Cases:</strong> Simple Q&A, content generation, prototyping</li>
+                        </ul>
+                    </div>
+
+                    <div class="quota-card">
+                        <h4>🎨 DALL·E</h4>
+                        <ul class="model-list">
+                            <li><strong>Best For:</strong> Generates images from text prompts</li>
+                            <li><strong>Features:</strong> Supports image inpainting & editing</li>
+                            <li><strong>Use Cases:</strong> Marketing visuals, product mockups, creative content</li>
+                        </ul>
+                    </div>
+
+                    <div class="quota-card">
+                        <h4>🖼️ Multimodal GPT-4 (Vision)</h4>
+                        <ul class="model-list">
+                            <li><strong>Best For:</strong> Accepts image + text input</li>
+                            <li><strong>Output:</strong> Text only (not images)</li>
+                            <li><strong>Use Cases:</strong> Interpret charts, caption images, analyze diagrams</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="best-practice">
+                    <h4>💡 Model Selection Best Practices</h4>
+                    <ul>
+                        <li><strong>Reasoning/Summarization:</strong> → GPT-4 Turbo</li>
+                        <li><strong>Cost-sensitive Applications:</strong> → GPT-3.5</li>
+                        <li><strong>Visual Creative Generation:</strong> → DALL·E</li>
+                        <li><strong>Image Understanding:</strong> → GPT-4 Vision</li>
+                    </ul>
+                </div>
+
+                <div class="hands-on">
+                    <h4>🎯 Hands-on Practice</h4>
+                    <ol>
+                        <li>Deploy GPT-4 Turbo and DALL·E in a Foundry project</li>
+                        <li>Configure model parameters and settings</li>
+                        <li>Test model responses with sample prompts</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Submit Prompts -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">3️⃣</div>
+                    <div class="section-title">Submit Prompts</div>
+                </div>
+
+                <div class="subsection">
+                    <h3>How To Submit</h3>
+                    <div class="api-card">
+                        <h4>🎮 Azure AI Studio Playground</h4>
+                        <ul class="prompt-list">
+                            <li><strong>Purpose:</strong> GUI for experimenting with prompts</li>
+                            <li><strong>Features:</strong> Visual prompt testing, parameter tuning</li>
+                            <li><strong>Best For:</strong> Prototyping, testing, experimentation</li>
+                        </ul>
+                    </div>
+
+                    <div class="api-card">
+                        <h4>💻 SDKs</h4>
+                        <ul class="prompt-list">
+                            <li><strong>openai:</strong> GPT models, embeddings</li>
+                            <li><strong>azure-ai-inference:</strong> Broader Azure AI Foundry SDK</li>
+                            <li><strong>Best For:</strong> Production applications, programmatic access</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>What You Can Generate</h3>
+                    <ul class="prompt-list">
+                        <li><strong>Natural Language Responses:</strong> Chatbot answers, conversational AI</li>
+                        <li><strong>Summaries:</strong> Meeting notes, transcripts, document summaries</li>
+                        <li><strong>Code Completions:</strong> Dev copilots, bug fixes, code generation</li>
+                        <li><strong>Images (DALL·E):</strong> Marketing visuals, product mockups, creative content</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Example Implementation</h3>
+                    <div class="code-block">
+from openai import AzureOpenAI
+
+client = AzureOpenAI(
+    api_key="YOUR_KEY",
+    api_version="2024-06-01-preview",
+    azure_endpoint="https://YOUR_RESOURCE.openai.azure.com/"
+)
+
+response = client.chat.completions.create(
+    model="gpt-4-turbo",
+    messages=[{"role":"user","content":"Summarize this meeting transcript..."}],
+    temperature=0.7,
+    max_tokens=500
+)
+
+print(response.choices[0].message["content"])
+                    </div>
+                </div>
+
+                <div class="hands-on">
+                    <h4>🎯 Hands-on Practice</h4>
+                    <ol>
+                        <li>Generate a 3-paragraph summary of a long text</li>
+                        <li>Use DALL·E to generate 3 product images from prompts</li>
+                        <li>Run embeddings for 10 FAQ queries</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Build Assistants -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">4️⃣</div>
+                    <div class="section-title">Build Assistants (Azure OpenAI Assistants API)</div>
+                </div>
+
+                <div class="subsection">
+                    <h3>What It Is</h3>
+                    <div class="concept-card">
+                        <h5>🤖 Assistants API</h5>
+                        <p>A higher-level orchestration API for managing multi-turn AI interactions with advanced capabilities.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Key Features</h3>
+                    <ul class="assistant-list">
+                        <li><strong>Multi-turn Conversations:</strong> Maintain state across sessions</li>
+                        <li><strong>Tool Calling:</strong> LLM can call external APIs when needed</li>
+                        <li><strong>Memory Storage:</strong> Persistent context (e.g., "Remember my name is Alex")</li>
+                        <li><strong>File Support:</strong> Attach docs/images for model grounding</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Use Cases</h3>
+                    <ul class="assistant-list">
+                        <li><strong>Customer Service Assistant:</strong> Remembers prior interactions</li>
+                        <li><strong>Developer Copilot:</strong> Calls code APIs for completions</li>
+                        <li><strong>Analyst Assistant:</strong> Retrieves company data via API calls</li>
+                        <li><strong>Personal Assistant:</strong> Manages tasks and reminders</li>
+                    </ul>
+                </div>
+
+                <div class="best-practice">
+                    <h4>💡 Assistant Best Practices</h4>
+                    <ul>
+                        <li><strong>Content Safety:</strong> Always integrate content safety filters before returning assistant responses</li>
+                        <li><strong>State Management:</strong> Store assistant state in databases for continuity across sessions</li>
+                        <li><strong>Security:</strong> Limit tool access with RBAC + security checks</li>
+                        <li><strong>Error Handling:</strong> Implement robust error handling for tool calls</li>
+                    </ul>
+                </div>
+
+                <div class="hands-on">
+                    <h4>🎯 Hands-on Practice</h4>
+                    <ol>
+                        <li>Build an Assistant that handles FAQs</li>
+                        <li>Add tool calling for weather API when user asks about weather</li>
+                        <li>Implement memory storage for user's name in follow-up conversations</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Exam Triggers -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">✅</div>
+                    <div class="section-title">Exam Triggers</div>
+                </div>
+
+                <div class="exam-trigger">
+                    <h4>🎯 Common Exam Scenarios</h4>
+                    <ul>
+                        <li><strong>Provision OpenAI Models:</strong> Azure Foundry → Foundry Models resource</li>
+                        <li><strong>Complex Reasoning:</strong> Multi-turn chatbot → GPT-4 Turbo</li>
+                        <li><strong>Low-cost FAQ Assistant:</strong> → GPT-3.5</li>
+                        <li><strong>Generate Visuals for Marketing:</strong> → DALL·E</li>
+                        <li><strong>Analyze Chart Image:</strong> → GPT-4 Vision</li>
+                        <li><strong>Test Prompts:</strong> → AI Studio Playground</li>
+                        <li><strong>Integrate into Apps:</strong> → SDKs (openai, azure-ai-inference)</li>
+                        <li><strong>Assistants API Capabilities:</strong> Multi-turn, tool calling, memory</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Models Comparison Tab -->
+        <div id="comparison" class="tab-content">
+            <div class="comparison-matrix">
+                <h2>🔍 Azure OpenAI Models Comparison Matrix</h2>
+                <p>Choose the right model for your specific use case</p>
+                
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Primary Use</th>
+                            <th>Key Features</th>
+                            <th>Best For</th>
+                            <th>Cost Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="model-name">GPT-4 Turbo</td>
+                            <td>Complex reasoning</td>
+                            <td>
+                                <span class="feature-tag">High Accuracy</span>
+                                <span class="feature-tag">Extended Context</span>
+                                <span class="feature-tag">Lower Latency</span>
+                            </td>
+                            <td>Production apps, complex conversations</td>
+                            <td>High</td>
+                        </tr>
+                        <tr>
+                            <td class="model-name">GPT-3.5</td>
+                            <td>High-volume tasks</td>
+                            <td>
+                                <span class="feature-tag">Cost Effective</span>
+                                <span class="feature-tag">Fast</span>
+                                <span class="feature-tag">Scalable</span>
+                            </td>
+                            <td>FAQ bots, simple tasks, prototyping</td>
+                            <td>Low</td>
+                        </tr>
+                        <tr>
+                            <td class="model-name">DALL·E</td>
+                            <td>Image generation</td>
+                            <td>
+                                <span class="feature-tag">Text-to-Image</span>
+                                <span class="feature-tag">Inpainting</span>
+                                <span class="feature-tag">Creative</span>
+                            </td>
+                            <td>Marketing visuals, creative content</td>
+                            <td>Medium</td>
+                        </tr>
+                        <tr>
+                            <td class="model-name">GPT-4 Vision</td>
+                            <td>Multimodal analysis</td>
+                            <td>
+                                <span class="feature-tag">Image + Text</span>
+                                <span class="feature-tag">Analysis</span>
+                                <span class="feature-tag">Understanding</span>
+                            </td>
+                            <td>Image analysis, chart interpretation</td>
+                            <td>High</td>
+                        </tr>
+                        <tr>
+                            <td class="model-name">Embeddings</td>
+                            <td>Vector search</td>
+                            <td>
+                                <span class="feature-tag">Semantic Search</span>
+                                <span class="feature-tag">RAG Support</span>
+                                <span class="feature-tag">Clustering</span>
+                            </td>
+                            <td>Search, recommendations, RAG</td>
+                            <td>Low</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-card">
+                <h3>🎯 Model Selection Decision Matrix</h3>
+                <div class="reference-grid">
+                    <div class="reference-item">
+                        <h4>Use GPT-4 Turbo When:</h4>
+                        <ul>
+                            <li>Need highest accuracy and reasoning</li>
+                            <li>Complex multi-turn conversations</li>
+                            <li>Production applications</li>
+                            <li>Extended context requirements</li>
+                        </ul>
+                    </div>
+                    <div class="reference-item">
+                        <h4>Use GPT-3.5 When:</h4>
+                        <ul>
+                            <li>High-volume, simple tasks</li>
+                            <li>Cost optimization is critical</li>
+                            <li>Prototyping and experimentation</li>
+                            <li>FAQ and basic Q&A systems</li>
+                        </ul>
+                    </div>
+                    <div class="reference-item">
+                        <h4>Use DALL·E When:</h4>
+                        <ul>
+                            <li>Need image generation from text</li>
+                            <li>Marketing and creative content</li>
+                            <li>Product mockups and visuals</li>
+                            <li>Artistic and design applications</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exam Tricks Tab -->
+        <div id="exam-tricks" class="tab-content">
+            <div class="exam-tricks">
+                <h2>🎯 Exam Trick Questions & Common Pitfalls</h2>
+                
+                <div class="trick-question">
+                    <h4>❓ Question: What's the first step to use Azure OpenAI in AI Foundry?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Create a Foundry Models resource<br>
+                        <strong>Trick:</strong> Don't choose individual model deployment - you need the Foundry Models resource first to access all OpenAI models.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: Which model is best for complex reasoning and multi-turn chatbots?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> GPT-4 Turbo<br>
+                        <strong>Trick:</strong> Don't choose GPT-3.5 for complex tasks - GPT-4 Turbo is specifically optimized for production use with better reasoning capabilities.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: What's the best model for a low-cost FAQ assistant?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> GPT-3.5<br>
+                        <strong>Trick:</strong> Don't choose GPT-4 for simple tasks - GPT-3.5 is much more cost-effective for high-volume, simple Q&A applications.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: Which model should you use to generate marketing visuals?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> DALL·E<br>
+                        <strong>Trick:</strong> Don't choose GPT-4 Vision - that's for image analysis, not generation. DALL·E is specifically for text-to-image generation.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: What's the best way to test prompts before integration?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Azure AI Studio Playground<br>
+                        <strong>Trick:</strong> Don't choose SDKs for testing - the Playground provides a visual interface for prompt experimentation and tuning.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: Which API provides multi-turn conversations and tool calling?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Assistants API<br>
+                        <strong>Trick:</strong> Don't choose the basic chat completions API - the Assistants API provides higher-level orchestration with memory and tool calling.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: What's the key difference between GPT-4 Vision and DALL·E?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> GPT-4V analyzes images and outputs text, DALL·E generates images from text<br>
+                        <strong>Trick:</strong> Don't confuse their purposes - GPT-4V is for understanding images, DALL·E is for creating images.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: Which SDK should you use for broader Azure AI Foundry integration?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> azure-ai-inference<br>
+                        <strong>Trick:</strong> Don't choose just the openai SDK - azure-ai-inference provides broader integration with the entire Azure AI Foundry ecosystem.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Reference Tab -->
+        <div id="quick-ref" class="tab-content">
+            <div class="quick-reference">
+                <h2>⚡ Quick Reference Guide</h2>
+                <p>Essential Azure OpenAI implementation information at a glance</p>
+                
+                <div class="reference-grid">
+                    <div class="reference-item">
+                        <h4>1️⃣ Provisioning</h4>
+                        <p><strong>Resource:</strong> Foundry Models in Azure AI Foundry<br>
+                        <strong>Quotas:</strong> GPT-4, GPT-3.5, Embeddings, DALL·E, GPT-4V<br>
+                        <strong>Requirements:</strong> Regional availability, quota approval<br>
+                        <strong>Best Practice:</strong> Use tags for cost tracking</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>2️⃣ Model Selection</h4>
+                        <p><strong>GPT-4 Turbo:</strong> Complex reasoning, production apps<br>
+                        <strong>GPT-3.5:</strong> Cost-effective, high-volume tasks<br>
+                        <strong>DALL·E:</strong> Text-to-image generation<br>
+                        <strong>GPT-4V:</strong> Image analysis and understanding</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>3️⃣ Prompt Submission</h4>
+                        <p><strong>Playground:</strong> AI Studio for testing and experimentation<br>
+                        <strong>SDKs:</strong> openai, azure-ai-inference for production<br>
+                        <strong>Capabilities:</strong> Text, summaries, code, images<br>
+                        <strong>Integration:</strong> REST APIs, SDKs, playground</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>4️⃣ Assistants API</h4>
+                        <p><strong>Features:</strong> Multi-turn, tool calling, memory<br>
+                        <strong>Use Cases:</strong> Customer service, developer copilots<br>
+                        <strong>Capabilities:</strong> File support, persistent context<br>
+                        <strong>Best Practice:</strong> Content safety, state management</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>🔧 Implementation</h4>
+                        <p><strong>Setup:</strong> Foundry Models → Quota → Deploy → Test<br>
+                        <strong>Testing:</strong> Playground for experimentation<br>
+                        <strong>Production:</strong> SDKs for application integration<br>
+                        <strong>Monitoring:</strong> Cost tracking, usage analytics</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>🎯 Best Practices</h4>
+                        <p><strong>Selection:</strong> Choose model based on use case complexity<br>
+                        <strong>Cost:</strong> Use appropriate model for task requirements<br>
+                        <strong>Safety:</strong> Always implement content safety filters<br>
+                        <strong>Testing:</strong> Use playground before production deployment</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                    <h3>🎯 Implementation Checklist</h3>
+                    <div class="code-block">
+                        ✅ Create Foundry Models resource in Azure AI Foundry<br>
+                        ✅ Request and assign quotas for required models<br>
+                        ✅ Deploy models in hub/project environment<br>
+                        ✅ Test models using AI Studio Playground<br>
+                        ✅ Choose appropriate SDK for integration<br>
+                        ✅ Implement content safety and moderation<br>
+                        ✅ Set up cost tracking and monitoring<br>
+                        ✅ Configure authentication and access controls<br>
+                        ✅ Test with real-world scenarios<br>
+                        ✅ Deploy to production with proper monitoring
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all nav tabs
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked nav tab
+            event.target.classList.add('active');
+        }
+
+        // Add smooth scrolling for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

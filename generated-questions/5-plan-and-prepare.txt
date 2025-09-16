@@ -1,0 +1,109 @@
+Q1. Business Case – Chatbot
+
+A healthcare provider wants to build a patient support chatbot that answers questions based on its internal medical policy handbook. Which is the most important step during planning?
+
+A. Fine-tune GPT-4 with general internet data.
+B. Identify proprietary knowledge (medical policies) as a data source.
+C. Increase model temperature to improve creativity.
+D. Use DALL·E to visualize patient conversations.
+
+✅ Answer: B – The key is identifying data sources (internal policies) to ground the chatbot.
+
+Q2. Business Case – Summarization
+
+Your legal team wants to reduce the time spent reading 200-page case files. Which AI solution aligns best with the business case?
+
+A. Deploy GPT-4 Turbo for abstractive summarization.
+B. Use GPT-3.5 with embeddings for semantic search.
+C. Fine-tune a DALL·E model on legal contracts.
+D. Store the case files in Blob without indexing.
+
+✅ Answer: A – GPT-4 Turbo is best for complex summarization.
+
+Q3. Data Sources
+
+An HR team wants an assistant that can answer questions about vacation policies, benefits, and internal guidelines. Which data sources should you prioritize?
+
+A. Company PDFs and HR knowledge base stored in Blob or SharePoint.
+B. Social media reviews from Glassdoor.
+C. Random internet articles about HR laws.
+D. Azure Monitor logs.
+
+✅ Answer: A – The assistant must be grounded in trusted internal docs.
+
+Q4. Deployment Pattern – RAG
+
+You are building an AI solution where employees can ask natural-language questions about company security policies. Which deployment pattern is best?
+
+A. Zero-shot prompting with GPT-3.5.
+B. RAG using embeddings + Azure AI Search.
+C. Fine-tuning GPT-4 Turbo with internet cybersecurity blogs.
+D. Generating images with DALL·E.
+
+✅ Answer: B – Retrieval-Augmented Generation ensures answers come from company-specific policies.
+
+Q5. Deployment Pattern – Fine-Tuning
+
+A law firm wants all AI-generated contracts to follow a very specific format and tone consistent with past templates. Which deployment pattern is best?
+
+A. RAG with embeddings.
+B. Fine-tuning a GPT-3.5 model on historical contracts.
+C. Zero-shot prompting with GPT-4 Turbo.
+D. Using GPT-4 Vision to interpret scanned contracts.
+
+✅ Answer: B – Fine-tuning enforces style/format consistency.
+
+Q6. Zero-Shot vs Few-Shot
+
+Which example best demonstrates few-shot prompting?
+
+A. Asking GPT-4 to summarize a report without context.
+B. Providing three Q&A examples in the prompt before asking a new question.
+C. Uploading a large dataset to Azure Blob.
+D. Indexing a PDF with Azure AI Search.
+
+✅ Answer: B – Few-shot = give examples in the prompt.
+
+Q7. Trick Question – Translation
+
+Your marketing team needs an AI model to translate product descriptions into Spanish. Which pattern is most efficient?
+
+A. Fine-tune GPT-4 on multilingual documents.
+B. RAG with Azure AI Search.
+C. Zero-shot prompting with GPT-4 or GPT-3.5.
+D. Use DALL·E for text-to-image translation.
+
+✅ Answer: C – Translation works with zero-shot prompting (no extra data needed).
+
+Q8. Hallucination Prevention
+
+During planning, your team worries that GPT may generate inaccurate answers for compliance questions. Which deployment pattern mitigates this risk best?
+
+A. RAG with embeddings and AI Search.
+B. Increasing temperature for creativity.
+C. DALL·E for content moderation.
+D. Fine-tuning with random internet text.
+
+✅ Answer: A – RAG grounds the model in trusted enterprise data, reducing hallucinations.
+
+Q9. Business Case Trade-Offs
+
+You need to support 10,000 queries per day for a customer FAQ bot, but cost is a primary concern. Which model should you plan to deploy?
+
+A. GPT-4 Turbo
+B. GPT-3.5
+C. DALL·E
+D. GPT-4 Vision
+
+✅ Answer: B – GPT-3.5 is cost-efficient for lightweight FAQ-style tasks.
+
+Q10. Exam “Curveball”
+
+Your company wants a copilot that assists financial analysts by summarizing SEC filings, interpreting graphs, and generating quick insights. Which combination should you plan?
+
+A. GPT-4 Turbo + RAG with AI Search + GPT-4 Vision
+B. GPT-3.5 only with few-shot prompting
+C. DALL·E for financial report illustrations
+D. Fine-tuned GPT-3.5 without grounding
+
+✅ Answer: A – Complex reasoning (GPT-4 Turbo) + grounding (RAG) + multimodal graph analysis (GPT-4 Vision).

@@ -1,0 +1,240 @@
+1. Selecting the Appropriate Azure AI Foundry Services
+🧠 Generative AI — Azure OpenAI Service
+Core Capabilities
+
+Access to OpenAI foundation models hosted in Azure:
+
+GPT-4, GPT-4 Turbo → reasoning, multi-turn chat, summarization, content creation.
+
+GPT-3.5 → lower-cost option for simpler tasks.
+
+Embeddings API → convert text into vectors for semantic search, clustering, or recommendation.
+
+DALL·E → text-to-image generation (also image inpainting/editing).
+
+Integration with Azure AI Studio for prompt testing, fine-tuning, safety filters.
+
+Best-fit Use Cases
+
+Chatbots & Copilots: customer service bots, sales assistants.
+
+Content generation: blog drafts, marketing copy, idea brainstorming.
+
+Summarization: financial reports, medical transcripts, call center logs.
+
+Semantic search & RAG: embeddings + Azure AI Search.
+
+Considerations
+
+Quota & model availability varies by region.
+
+Cost: token-based billing (input + output tokens).
+
+Security: Azure isolates customer data; enterprise agreements guarantee no training on your data.
+
+Hands-on Practice
+
+Deploy GPT-4 in Azure AI Studio.
+
+Adjust temperature (creativity) & max tokens.
+
+Test: build a chatbot that summarizes meeting notes.
+
+Generate embeddings from text and store in Azure AI Search index.
+
+👁 Computer Vision — Azure AI Vision
+Core Capabilities
+
+Image Analysis 4.0 API:
+
+Object detection, image tagging, scene recognition.
+
+OCR (Read API):
+
+Extract printed and handwritten text from documents.
+
+Spatial Analysis:
+
+Count people, track movement in a video stream (used in retail/transport).
+
+Face API (separate service, sometimes grouped with Vision):
+
+Detect face attributes, compare faces, verify identity.
+
+Best-fit Use Cases
+
+Retail: footfall analytics, heatmaps.
+
+Healthcare: extract text from forms.
+
+Manufacturing: detect defects in images.
+
+Legal/Finance: digitize documents with OCR.
+
+Considerations
+
+Accuracy depends on image quality and language coverage.
+
+Security: GDPR restrictions around facial recognition in some regions.
+
+Hands-on Practice
+
+Upload an invoice → run OCR → extract text.
+
+Detect objects in a sample image (cars, animals, etc.).
+
+Enable spatial analysis on a video feed.
+
+📖 Natural Language Processing — Azure AI Language
+Core Capabilities
+
+Sentiment Analysis: detect positive/negative/neutral tone.
+
+Key Phrase Extraction: pull out important concepts.
+
+Named Entity Recognition (NER): identify people, places, dates.
+
+Language Detection: auto-detect language from text.
+
+Summarization & Translation: text simplification, multi-language.
+
+Best-fit Use Cases
+
+Customer feedback: analyze survey responses, social media mentions.
+
+HR/Recruiting: scan resumes for skills.
+
+Healthcare: extract entities from doctor’s notes.
+
+Considerations
+
+Supports multi-lingual processing.
+
+Great for structured insights from large text corpora.
+
+Hands-on Practice
+
+Run sentiment analysis on product reviews.
+
+Extract named entities from a news article.
+
+Summarize a long customer support ticket.
+
+🎙 Speech — Azure AI Speech
+Core Capabilities
+
+Speech-to-Text:
+
+Transcribe audio files or live streams.
+
+Supports custom language models (train on domain-specific vocabulary).
+
+Text-to-Speech:
+
+Natural-sounding voices (Neural TTS).
+
+Speech Translation:
+
+Real-time audio translation (e.g., English → Spanish).
+
+Best-fit Use Cases
+
+Call centers: transcribe customer service calls.
+
+Accessibility: generate voice from text for visually impaired users.
+
+Global meetings: live captioning + translation.
+
+Considerations
+
+Pricing: billed by minutes of audio.
+
+Privacy: can deploy via container for secure offline use.
+
+Hands-on Practice
+
+Upload a 30-second audio clip → transcribe text.
+
+Use TTS to generate a narration voiceover.
+
+Translate English audio → Spanish text.
+
+📑 Information Extraction — Document Intelligence (Form Recognizer)
+Core Capabilities
+
+Extracts structured data from documents:
+
+Invoices, receipts, IDs, business cards.
+
+Prebuilt models for common document types.
+
+Custom models:
+
+Train with labeled samples (semi-supervised learning).
+
+Layout API:
+
+Extract tables and structure, not just text.
+
+Best-fit Use Cases
+
+Finance: expense management, invoice processing.
+
+Insurance: claims automation.
+
+Legal: digitizing contracts.
+
+Considerations
+
+Custom model accuracy improves with 5–10 training docs minimum.
+
+Sensitive documents → deploy via container for compliance.
+
+Hands-on Practice
+
+Upload 5 sample receipts → train a custom extractor.
+
+Use the prebuilt invoice model on a new invoice.
+
+Parse a scanned PDF with mixed text + tables.
+
+🔎 Knowledge Mining — Azure AI Search (Cognitive Search)
+Core Capabilities
+
+Indexing:
+
+Structured + unstructured data (PDF, Office docs, websites).
+
+Enrichment pipelines:
+
+Integrate AI Skills (OCR, NER, translation).
+
+Semantic Search:
+
+Powered by embeddings + vector similarity.
+
+Integration with RAG:
+
+Combine with OpenAI for context-aware chatbots.
+
+Best-fit Use Cases
+
+Enterprise knowledge bases: internal search portals.
+
+Customer self-service: product manuals, FAQs.
+
+Legal discovery: search across millions of documents.
+
+Considerations
+
+Cost driven by number of indexes & documents.
+
+Performance: scale with replicas/shards.
+
+Hands-on Practice
+
+Connect a blob storage container of PDFs.
+
+Build an index → add enrichment with OCR + key phrase extraction.
+
+Run semantic queries like “What are the warranty terms?”

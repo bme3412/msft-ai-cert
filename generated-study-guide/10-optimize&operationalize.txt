@@ -1,0 +1,150 @@
+Optimize & Operationalize Generative AI Solutions
+⚙️ 1. Configure Model Behavior
+Key Parameters
+
+temperature → randomness in output.
+
+Low (0.0–0.3): deterministic, precise.
+
+High (0.7–1.0): creative, varied responses.
+
+top_p (nucleus sampling) → probability mass of tokens to sample from.
+
+Alternative to temperature; controls diversity.
+
+max_tokens → sets length of output.
+
+Prevents runaway responses.
+
+frequency_penalty → reduces repetition of same phrases.
+
+presence_penalty → encourages introducing new topics.
+
+Best Practice: Tune temperature + top_p together to balance creativity and reliability.
+
+📊 2. Monitoring & Diagnostics
+Tools
+
+Azure Monitor → track metrics (latency, request counts, quota).
+
+Application Insights → trace dependencies, analyze response times.
+
+Diagnostics logs → inspect input/output requests for debugging.
+
+Key Metrics to Track
+
+Latency → response speed.
+
+Token consumption → billing driver.
+
+Quota usage → ensures you don’t hit limits.
+
+Error rates → monitor failed calls.
+
+Best Practice: Enable prompt logging & tracing in App Insights for debugging prompt flows.
+
+🚀 3. Optimize Resources
+
+Autoscaling policies → scale endpoints up/down with demand.
+
+Model selection strategy:
+
+GPT-3.5 → cheap bulk tasks (classification, drafts).
+
+GPT-4 → complex reasoning & accuracy-critical.
+
+Stay current: Azure frequently updates foundation models → migrate when possible for efficiency.
+
+Best Practice: Use a hybrid approach (tiered models) to balance cost and performance.
+
+🔁 4. Feedback & Reflection
+
+Human-in-the-loop feedback
+
+Collect thumbs up/down + qualitative comments.
+
+Feed into model evaluation/retraining pipeline.
+
+Model reflection
+
+Secondary LLM evaluates/filters outputs of the primary.
+
+Example: GPT-3.5 generates → GPT-4 validates/corrects.
+
+Best Practice: Use reflection + user feedback loops to improve production accuracy.
+
+🖥 5. Containers & Edge Deployment
+
+OpenAI models (GPT, DALL·E) → cloud-only, no container deployment.
+
+Other services (Vision, Speech, Form Recognizer) → containerized for on-prem or edge.
+
+Edge scenarios: latency-sensitive, offline, compliance-heavy (healthcare, defense).
+
+Best Practice: Deploy containers for edge apps but remember GPT = cloud only.
+
+🔗 6. Orchestration of Multiple Models
+
+Combine models for complex workflows:
+
+GPT-4 → reasoning, summarization.
+
+Embeddings model → semantic search & RAG.
+
+DALL·E → visual generation.
+
+Frameworks:
+
+LangChain → Python/JS orchestration for chaining prompts, tools, and retrieval.
+
+Semantic Kernel → Microsoft’s orchestration framework (C#, Python).
+
+Best Practice: Orchestrate smaller models for specific tasks instead of always calling GPT-4.
+
+🧾 7. Prompt Engineering
+
+Few-shot prompting → include examples for consistent responses.
+
+Chain-of-thought prompting → ask model to reason step by step.
+
+Role prompting → “You are a financial analyst…” sets behavior.
+
+Guardrail prompting → explicitly restrict disallowed outputs.
+
+Best Practice: Use structured prompts (templates, roles, examples) to reduce hallucinations.
+
+🛠 8. Fine-Tuning
+
+What It Is: Train a base OpenAI model with custom data (JSONL).
+
+When to Use:
+
+Style-specific tasks (legal writing, brand tone).
+
+Repeated Q&A in niche domains.
+
+Not a Replacement for RAG:
+
+Fine-tuning = style & domain adaptation.
+
+RAG = grounding in current, large, or dynamic datasets.
+
+Best Practice: Fine-tune smaller models (GPT-3.5) for cost efficiency; use RAG for freshness.
+
+✅ Exam Triggers
+
+Control creativity/determinism → adjust temperature & top_p.
+
+Scenario: GPT-4 costs too high → switch to GPT-3.5 for bulk tasks.
+
+Scenario: chatbot hallucinating → implement RAG or guardrail prompting.
+
+Scenario: compliance requires on-prem AI → containerized Vision/Speech/Form Recognizer.
+
+Scenario: improve responses using user feedback → implement human-in-the-loop + reflection.
+
+Scenario: orchestrating reasoning + retrieval + image generation → combine GPT-4, embeddings, DALL·E via LangChain/Semantic Kernel.
+
+Scenario: maintain brand tone in responses → fine-tuning.
+
+Scenario: trace/debug prompts in production → enable logging in App Insights.

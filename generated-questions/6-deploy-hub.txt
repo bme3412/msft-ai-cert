@@ -1,0 +1,120 @@
+Deploy Hub, Project, and Resources
+Q1. Hub vs Project
+
+Which statement best describes the difference between a Hub and a Project in Azure AI Foundry?
+
+A. A hub contains multiple projects; a project contains datasets, models, and flows.
+B. A project contains multiple hubs; a hub contains only datasets.
+C. A hub is created per user; a project is created per subscription.
+D. A project manages billing; a hub is for experiments.
+
+✅ Answer: A – Hubs organize multiple projects, and projects hold resources like models, data, and prompt flows.
+
+Q2. Resource Setup
+
+You are creating a RAG-based legal assistant project. Which services must you deploy in your project?
+
+A. Azure AI Search and Azure OpenAI
+B. DALL·E and GPT-4 Vision
+C. Azure Key Vault only
+D. Application Insights only
+
+✅ Answer: A – RAG requires Azure AI Search (indexing/embeddings) and OpenAI for response generation.
+
+Q3. Storage Selection
+
+Where should you store unstructured documents (PDF case files) so they can later be indexed for use in a generative AI project?
+
+A. Azure Key Vault
+B. Azure Blob Storage
+C. Cosmos DB
+D. Application Insights
+
+✅ Answer: B – Blob Storage is the best option for large, unstructured files.
+
+Q4. Secrets Management
+
+Where should you store API keys and connection strings for AI Foundry projects?
+
+A. Inside the application codebase.
+B. Azure AI Studio playground.
+C. Azure Key Vault.
+D. A GitHub repository.
+
+✅ Answer: C – Azure Key Vault is the secure location for managing secrets.
+
+Q5. Cosmos DB Use Case
+
+Which scenario is the best fit for using Cosmos DB in an AI Foundry project?
+
+A. Storing vector embeddings for RAG.
+B. Storing structured customer records for grounding queries.
+C. Storing large PDFs for OCR.
+D. Storing API keys securely.
+
+✅ Answer: B – Cosmos DB is used for structured datasets that can be referenced in grounding.
+
+Q6. Hub Governance
+
+A global company wants to separate AI workloads for Finance, HR, and Customer Support while applying different RBAC roles and monitoring for each unit. What should they create?
+
+A. A single hub with multiple projects.
+B. A separate project for each user.
+C. Multiple hubs, one per business unit.
+D. Multiple storage accounts without hubs.
+
+✅ Answer: C – Each business unit should have its own hub, containing projects for specific solutions.
+
+Q7. Trick Question — AI Search vs Blob
+
+An insurance company uploads scanned claim forms to Blob Storage. They want a chatbot that retrieves answers directly from these documents. Which additional service is required?
+
+A. Azure AI Search to index the documents.
+B. Azure Key Vault to store embeddings.
+C. Application Insights to track latency.
+D. DALL·E to visualize claims.
+
+✅ Answer: A – Blob stores the docs, but AI Search indexes them for RAG queries.
+
+Q8. Project Lifecycle
+
+Which of the following would you expect to manage at the Project level in AI Foundry?
+
+A. Assigning OpenAI quota to subscription.
+B. Deploying datasets, models, and prompt flows.
+C. Configuring enterprise-wide RBAC policies.
+D. Tracking billing across multiple departments.
+
+✅ Answer: B – Projects are scoped to datasets, models, prompt flows.
+
+Q9. Security Scenario
+
+A developer is testing an AI solution and hard-coded the Azure OpenAI key into a Python script. What’s the correct way to fix this in a production project?
+
+A. Use Azure Monitor to rotate the key automatically.
+B. Move the key into Azure Key Vault and fetch via Managed Identity.
+C. Store the key in Blob Storage with encryption.
+D. Keep the key but add comments for clarity.
+
+✅ Answer: B – Key Vault + Managed Identity is the secure way.
+
+Q10. Complex Scenario
+
+Your team is building a financial research copilot. You need:
+
+GPT-4 Turbo for reasoning.
+
+AI Search for grounding with financial reports.
+
+Secure storage of API keys.
+
+A structure to separate projects for “Analyst Copilot” and “Portfolio Copilot.”
+
+Which setup is correct?
+
+A. One hub → multiple projects (Analyst Copilot, Portfolio Copilot) → deploy OpenAI, AI Search, Blob Storage, Key Vault.
+B. Multiple hubs per project → deploy only OpenAI.
+C. One hub with one project → deploy only GPT-4 Turbo.
+D. Multiple projects per user → store keys in app code.
+
+✅ Answer: A – Correct setup is Hub → Projects → Resources (OpenAI, AI Search, Blob, Key Vault).

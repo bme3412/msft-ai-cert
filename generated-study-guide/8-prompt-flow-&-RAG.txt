@@ -1,0 +1,147 @@
+Implement Prompt Flows & RAG
+1️⃣ Prompt Flow Solutions
+What It Is
+
+A visual + code workflow tool inside Azure AI Foundry.
+
+Used to design, debug, and evaluate generative AI applications.
+
+Key Features
+
+Chaining capabilities: data ingestion → preprocessing → model call → output filtering → post-processing.
+
+Supports multiple nodes: model calls, function calls, safety checks, evaluation.
+
+Integration with Responsible AI tools:
+
+Content Safety (filters: violence, sexual, self-harm, hate).
+
+Prompt shields (detect jailbreak attempts).
+
+Evaluation support: BLEU, ROUGE, GPT-based evaluators.
+
+Best Practices
+
+Always include input filtering (before model call) + output moderation (after model call).
+
+Use prompt variables and templates for flexibility.
+
+Deploy prompt flows to projects for team-wide testing.
+
+Hands-On Practice
+
+Build a flow that:
+
+Accepts a user query.
+
+Calls GPT-4 Turbo.
+
+Runs content moderation.
+
+Returns the safe final response.
+
+Add a logging node for monitoring results.
+
+2️⃣ RAG Pattern (Retrieval-Augmented Generation)
+What It Is
+
+A design pattern to ground a generative model with external data.
+
+Prevents hallucinations by restricting model to trusted content.
+
+Typical Pipeline
+
+Store Docs → PDFs, manuals, policies into Blob Storage.
+
+Index Data → Azure AI Search indexes docs + generates embeddings.
+
+User Query → Embeddings → query converted into vector space.
+
+Retrieve Top N Matches → most relevant documents retrieved.
+
+Ground LLM Prompt → documents added to GPT prompt as context.
+
+Model Response → GPT generates grounded, domain-specific output.
+
+When to Use RAG
+
+Customer support chatbots (knowledge base answers).
+
+Legal/finance copilots (query laws, filings, contracts).
+
+HR assistants (policy-based answers).
+
+Benefits
+
+Accuracy → reduces hallucinations.
+
+Freshness → supports up-to-date content.
+
+Domain-specificity → aligns with enterprise data.
+
+Hands-On Practice
+
+Build a RAG app:
+
+Upload a company policy PDF to Blob Storage.
+
+Index with Azure AI Search.
+
+Create embeddings and retrieval pipeline.
+
+Ground GPT-4’s responses in indexed policies.
+
+3️⃣ Evaluate Models & Flows
+Why It Matters
+
+AI solutions must be tested, validated, and iteratively improved.
+
+Key Metrics
+
+Accuracy → factual correctness.
+
+Fluency → readability, grammar.
+
+Coherence → logical flow and context use.
+
+Safety → harmful/offensive content detection.
+
+Tools
+
+Azure AI Evaluation SDK: programmatic evaluation.
+
+AI Studio Evaluation Dashboard: compare models, prompt flows, safety levels.
+
+Human-in-the-loop feedback: thumbs up/down, annotation.
+
+Best Practices
+
+Run evaluation before production deployment.
+
+Benchmark multiple model versions (GPT-3.5 vs GPT-4 Turbo).
+
+Capture real-world feedback continuously and feed into retraining or prompt refinement.
+
+Hands-On Practice
+
+Evaluate two flows (GPT-3.5 vs GPT-4 Turbo) on summarization accuracy.
+
+Use BLEU/ROUGE for text overlap metrics.
+
+Collect user feedback inside an app → log results for retraining.
+
+✅ Exam Triggers
+
+Scenario: Build a pipeline with safety filters + post-processing → Prompt Flow.
+
+Scenario: Ensure chatbot answers from internal handbook → RAG with Azure AI Search.
+
+Scenario: Model producing hallucinations → fix with RAG grounding.
+
+Scenario: Compare two versions of a chatbot for coherence → use Evaluation SDK/dashboard.
+
+Scenario: Protect against jailbreaks → add Prompt Shields in Prompt Flow.
+
+Scenario: Which metric for summarization quality? → ROUGE.
+
+Scenario: Human feedback loop → evaluation + logging for retraining.

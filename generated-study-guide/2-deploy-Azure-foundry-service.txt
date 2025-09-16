@@ -1,0 +1,206 @@
+2. Plan, Create, and Deploy an Azure AI Foundry Service
+🌍 Responsible AI Principles
+
+Microsoft requires all Azure AI deployments to follow Responsible AI (RAI) principles:
+
+Fairness
+
+Models should treat all users fairly.
+
+Example: Avoid bias in loan approval models or facial recognition.
+
+Reliability & Safety
+
+Models must behave as expected in different conditions.
+
+Include fallback logic when AI confidence is low.
+
+Privacy & Security
+
+Protect user data (encryption, anonymization, least-privilege access).
+
+Ensure API keys are secured in Key Vault or use Managed Identity.
+
+Inclusiveness
+
+Ensure accessibility (multi-language, speech-to-text for hearing impaired).
+
+Transparency
+
+Users should know when they are interacting with AI.
+
+Provide explanations for decisions (responsible outputs).
+
+Accountability
+
+Human oversight is critical; AI must not make unchecked decisions.
+
+Hands-on Practice
+
+In Azure AI Studio, configure:
+
+Content filters: profanity, sexual, violence.
+
+Prompt shields: block harmful prompt injection attempts.
+
+Blocklists: prevent AI from using forbidden terms.
+
+⚙️ Create AI Resources
+
+You can create AI resources using:
+
+Azure Portal (GUI-based, easiest for learning).
+
+Azure CLI (az cognitiveservices account create).
+
+ARM/Bicep Templates (Infrastructure as Code).
+
+Terraform (multi-cloud automation).
+
+Best Practice
+
+Group resources into Resource Groups for lifecycle management.
+
+Use tags (environment: dev/test/prod) for cost tracking.
+
+🧠 Model Choice
+
+Selecting the right model = critical exam scenario.
+
+Generative AI → Azure OpenAI (GPT-4, GPT-4 Turbo).
+
+Computer Vision → Azure AI Vision.
+
+NLP tasks → Azure AI Language.
+
+Speech tasks → Azure AI Speech.
+
+Document data extraction → Document Intelligence (Form Recognizer).
+
+Search + RAG → Azure AI Search.
+
+Tip: The exam will often give you two correct options — you must pick the one best aligned with the scenario.
+
+🚀 Deployment Options
+
+You can deploy AI services in different modes:
+
+Real-time endpoints
+
+Used for interactive apps (chatbots, speech recognition).
+
+Latency-sensitive, billed per request.
+
+Example: Deploy GPT-4, call via Python SDK.
+
+Batch inference
+
+Used for large document/image processing in bulk.
+
+Example: Summarizing 1M PDF documents overnight.
+
+Container deployment
+
+Supported by Vision, Speech, Document Intelligence.
+
+Run services in Docker containers at the edge or on-prem.
+
+Ideal for compliance-sensitive industries (healthcare, finance).
+
+Hands-on Practice
+
+Deploy GPT-4 → real-time endpoint.
+
+Write a Python script with the openai SDK → call the endpoint.
+
+Batch process 50 images with Azure Vision.
+
+Pull Form Recognizer container image → run locally with Docker.
+
+🛠 SDKs & APIs
+
+You’ll use SDKs or REST APIs to interact with deployed services.
+
+Key SDKs:
+
+azure-ai-textanalytics → sentiment analysis, key phrases, translation.
+
+azure-cognitiveservices-vision → image tagging, OCR.
+
+azure-ai-formrecognizer → structured document extraction.
+
+azure-ai-speech → speech-to-text, text-to-speech.
+
+openai SDK → GPT models & embeddings.
+
+Hands-on Practice
+
+Write a Python or Node.js script that:
+
+Analyzes sentiment of a text review.
+
+Extracts text from an uploaded image.
+
+Calls GPT-4 to summarize the result.
+
+🌐 Default Endpoint
+
+Every Azure AI resource has:
+
+Endpoint URL (e.g., https://myai.openai.azure.com/)
+
+API Key (primary/secondary).
+
+Found in Keys and Endpoints blade in Azure Portal.
+
+Best Practice
+
+Store keys in Key Vault.
+
+Use Managed Identity whenever possible.
+
+Always use the default endpoint for SDK/API calls → keeps code portable.
+
+🔄 CI/CD Integration
+
+Azure AI solutions should fit into DevOps pipelines.
+
+Azure DevOps Pipelines or GitHub Actions can:
+
+Deploy ARM/Bicep templates.
+
+Run tests (unit, integration).
+
+Version-control ML models and datasets.
+
+Deploy updated models to staging → production.
+
+Best Practice
+
+Use blue-green deployments for safe rollouts.
+
+Automate model retraining pipelines if possible.
+
+📦 Container Deployment
+
+Azure AI services (Vision, Speech, Document Intelligence) support Docker-based deployment:
+
+Download from Microsoft Container Registry (MCR).
+
+Run locally with docker run.
+
+Point container at your Azure subscription for billing.
+
+Advantages
+
+Works offline (if pre-licensed).
+
+Control over latency and data residency.
+
+Ideal for defense, healthcare, finance sectors.
+
+Hands-on Practice
+
+Run Form Recognizer locally in Docker.
+
+Upload invoices to localhost → extract JSON output.

@@ -1,0 +1,134 @@
+Use Azure OpenAI in Foundry Models
+Q1. Provisioning
+
+What’s the first step to access GPT-4, GPT-3.5, and DALL·E inside Azure AI Foundry?
+
+A. Create a Blob Storage account.
+B. Provision a Foundry Models resource with assigned quota.
+C. Upload prompts to Azure DevOps.
+D. Install the azure-ai-textanalytics SDK.
+
+✅ Answer: B – You must provision a Foundry Models resource and assign quota.
+
+Q2. Model Selection
+
+A bank is building a complex reasoning chatbot that summarizes financial reports. Which model should they deploy?
+
+A. GPT-3.5
+B. GPT-4 Turbo
+C. DALL·E
+D. GPT-4 Vision
+
+✅ Answer: B – GPT-4 Turbo is designed for reasoning and summarization.
+
+Q3. Cost-Effective Use Case
+
+A retail company wants to deploy a high-volume FAQ assistant with minimal cost. Which model should they choose?
+
+A. GPT-4 Turbo
+B. GPT-3.5
+C. DALL·E
+D. Embeddings only
+
+✅ Answer: B – GPT-3.5 is fast and cost-efficient for lightweight FAQ tasks.
+
+Q4. Image Generation
+
+The marketing team wants an AI tool that generates holiday campaign images from text prompts. Which model should they use?
+
+A. GPT-4 Turbo
+B. GPT-3.5
+C. DALL·E
+D. GPT-4 Vision
+
+✅ Answer: C – DALL·E generates images from text.
+
+Q5. Multimodal Input
+
+Which model should you deploy if you need to interpret both text and image input?
+
+A. GPT-3.5
+B. DALL·E
+C. GPT-4 Vision
+D. Embeddings
+
+✅ Answer: C – GPT-4 Vision is multimodal: text + image input → text output.
+
+Q6. Submitting Prompts
+
+Which two methods can you use to submit prompts to Azure OpenAI models?
+
+A. Azure AI Studio playground and SDKs (openai / azure-ai-inference).
+B. GitHub Copilot and Microsoft Word.
+C. Azure Key Vault and Blob Storage.
+D. Azure Monitor and App Insights.
+
+✅ Answer: A – Prompts are submitted via playground or SDKs.
+
+Q7. Assistant Features
+
+Which of the following is not a capability of the Azure OpenAI Assistants API?
+
+A. Multi-turn conversations.
+B. Tool/function calling.
+C. Memory storage.
+D. Image generation.
+
+✅ Answer: D – Assistants API doesn’t generate images (that’s DALL·E).
+
+Q8. Tool Calling
+
+Your company wants an AI assistant that can answer questions but also call external APIs (e.g., weather data). Which feature supports this?
+
+A. Prompt Flow
+B. Azure Key Vault
+C. Assistants API tool calling
+D. Blob Storage
+
+✅ Answer: C – Tool calling is a feature of the Assistants API.
+
+Q9. Trick Question — Summarization
+
+You need to summarize 100-page legal documents. Which two services/resources are required in Azure AI Foundry?
+
+A. GPT-4 Turbo + Blob Storage
+B. GPT-3.5 + DALL·E
+C. GPT-4 Vision + Form Recognizer
+D. Embeddings + Key Vault
+
+✅ Answer: A – Store docs in Blob, summarize with GPT-4 Turbo.
+
+Q10. Complex Scenario
+
+You’re building an AI copilot that:
+
+Supports multi-turn conversations.
+
+Calls APIs for external data (e.g., stock prices).
+
+Remembers user preferences.
+
+Which Azure OpenAI capability should you use?
+
+A. DALL·E model.
+B. GPT-3.5 only.
+C. Assistants API.
+D. Embeddings + AI Search.
+
+✅ Answer: C – The Assistants API handles multi-turn, tool calling, and memory.
+
+✅ Exam Tips for “Use Azure OpenAI in Foundry Models”
+
+Provisioning → Foundry Models resource + quota assignment.
+
+GPT-4 Turbo → reasoning, summarization, copilots.
+
+GPT-3.5 → cost-efficient, high-volume tasks.
+
+DALL·E → text-to-image generation.
+
+GPT-4 Vision → multimodal (text + image input).
+
+Playground + SDKs → submit/test prompts.
+
+Assistants API → multi-turn, tool calling, memory.

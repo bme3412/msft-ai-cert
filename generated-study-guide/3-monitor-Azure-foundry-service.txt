@@ -1,0 +1,132 @@
+3. Manage, Monitor, and Secure an Azure AI Foundry Service
+📊 Monitoring
+Tools
+
+Azure Monitor
+
+Unified platform to track metrics (latency, requests/sec, errors).
+
+Can set alerts (e.g., notify if >5% requests fail).
+
+Application Insights (App Insights)
+
+Deep telemetry: response times, dependency tracking, custom events.
+
+Useful for debugging AI workloads and tracing end-to-end transactions.
+
+Diagnostics Logs
+
+Collect system-level logs (e.g., request/response, authentication failures).
+
+Push logs into Log Analytics Workspace for querying with Kusto Query Language (KQL).
+
+What to Monitor
+
+Performance metrics: latency, throughput, error rates.
+
+Token consumption: input/output token usage for OpenAI models.
+
+Quota utilization: track requests against subscription limits.
+
+User activity: API calls per app/user for auditing.
+
+Hands-on Practice
+
+Enable App Insights for an Azure OpenAI resource.
+
+Run a query in Log Analytics to see average response time.
+
+Set an alert if GPT-4 token usage exceeds 80% of quota.
+
+💰 Cost Management
+Tools
+
+Azure Cost Management + Billing
+
+Track spend by service, subscription, or resource group.
+
+Identify “hot spots” of high usage.
+
+Budgets
+
+Define monthly limits → trigger email or webhook alert if exceeded.
+
+Usage Quotas
+
+Restrict request rates (per minute/hour/day) to control runaway costs.
+
+Best Practices
+
+Use tags (e.g., “env:dev” or “dept:finance”) to track cost per team.
+
+For experiments → use dev/test resource SKUs where possible.
+
+Monitor token-based billing for OpenAI models (input + output tokens).
+
+Hands-on Practice
+
+Create a budget alert for $100/month on your AI resource.
+
+Tag resources with owner:brendan and environment:dev.
+
+Compare GPT-3.5 vs GPT-4 costs for the same workload.
+
+🔑 Account Keys
+Key Concepts
+
+Every Cognitive Service/OpenAI resource provides:
+
+Primary Key
+
+Secondary Key (backup)
+
+Both keys are valid → rotate periodically for security.
+
+Security Best Practice
+
+Store in Azure Key Vault → apps retrieve at runtime.
+
+Never hard-code keys in source code or config files.
+
+Rotate keys (e.g., every 90 days).
+
+Hands-on Practice
+
+Store API key in Azure Key Vault.
+
+Configure an app to retrieve key via Managed Identity.
+
+Rotate a key and confirm the app updates without downtime.
+
+🔐 Authentication
+Options
+
+API Keys
+
+Simple but less secure.
+
+Use only for quick POCs.
+
+Managed Identity (Recommended)
+
+Assign an Azure AD identity to your app/service.
+
+Eliminates need for keys.
+
+Integrates with Role-Based Access Control (RBAC).
+
+Benefits of Managed Identity
+
+No key storage/rotation burden.
+
+Least privilege access via RBAC roles.
+
+Stronger compliance posture (SOC, GDPR, HIPAA).
+
+Hands-on Practice
+
+Enable system-assigned managed identity for an Azure Function.
+
+Grant access to an AI resource (Cognitive Services Contributor role).
+
+Call the AI endpoint without embedding an API key.

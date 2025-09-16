@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deploy Hub, Project, and Resources - Study Guide</title>
+    <style>
+        :root {
+            --primary: #0078d4;
+            --secondary: #106ebe;
+            --accent: #00bcf2;
+            --success: #107c10;
+            --warning: #ff8c00;
+            --danger: #d13438;
+            --dark: #323130;
+            --light: #f3f2f1;
+            --text: #323130;
+            --text-muted: #605e5c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 120, 212, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 12px;
+            padding: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-tab.active {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-tab:hover:not(.active) {
+            background: var(--light);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-icon {
+            font-size: 2.5rem;
+            margin-right: 15px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .subsection {
+            margin-bottom: 25px;
+        }
+
+        .subsection h3 {
+            color: var(--secondary);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .hub-list, .project-list, .service-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .hub-list li, .project-list li, .service-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .hub-list li:before {
+            content: "🏗️";
+            position: absolute;
+            left: 0;
+        }
+
+        .project-list li:before {
+            content: "📂";
+            position: absolute;
+            left: 0;
+        }
+
+        .service-list li:before {
+            content: "🔧";
+            position: absolute;
+            left: 0;
+        }
+
+        .hands-on {
+            background: linear-gradient(135deg, #e8f4fd 0%, #f0f8ff 100%);
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .hands-on h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .hands-on ol {
+            padding-left: 20px;
+        }
+
+        .hands-on li {
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .comparison-matrix {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .matrix-table th,
+        .matrix-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .matrix-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .matrix-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .service-name {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .feature-tag {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin: 2px;
+        }
+
+        .exam-tricks {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 2px solid var(--warning);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .exam-tricks h2 {
+            color: var(--warning);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .trick-question {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--warning);
+        }
+
+        .trick-question h4 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .trick-answer {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            border-left: 3px solid var(--success);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .quick-reference {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .quick-reference h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .reference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .reference-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .reference-item h4 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .best-practice {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 2px solid var(--success);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .best-practice h4 {
+            color: var(--success);
+            margin-bottom: 10px;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .concept-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .concept-card h5 {
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .workflow-step {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .workflow-step h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .security-card {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 2px solid var(--warning);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .security-card h4 {
+            color: var(--warning);
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .nav-tab {
+                margin-bottom: 5px;
+            }
+
+            .matrix-table {
+                font-size: 0.9rem;
+            }
+
+            .matrix-table th,
+            .matrix-table td {
+                padding: 10px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏗️ Deploy Hub, Project, and Resources</h1>
+            <p>Comprehensive guide for Azure AI Foundry deployment and resource management</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('deployment-guide')">Deployment Guide</button>
+            <button class="nav-tab" onclick="showTab('comparison')">Services Comparison</button>
+            <button class="nav-tab" onclick="showTab('exam-tricks')">Exam Tricks</button>
+            <button class="nav-tab" onclick="showTab('quick-ref')">Quick Reference</button>
+        </div>
+
+        <!-- Deployment Guide Tab -->
+        <div id="deployment-guide" class="tab-content active">
+            <!-- Hub Deployment -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">🏗️</div>
+                    <div class="section-title">1. Hub (Top-Level Workspace)</div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Concept</h3>
+                    <div class="concept-card">
+                        <h5>🏢 Hub Definition</h5>
+                        <p>A Hub is the top-level organizational container in Azure AI Foundry. Think of it like a resource group dedicated to AI projects.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Key Points</h3>
+                    <ul class="hub-list">
+                        <li><strong>Multi-Project Container:</strong> Each hub can contain multiple projects</li>
+                        <li><strong>Shared Infrastructure:</strong> Manages authentication, monitoring, governance</li>
+                        <li><strong>Centralized Dashboards:</strong> Provides cost, usage, and compliance visibility</li>
+                        <li><strong>RBAC Management:</strong> Apply roles and permissions at hub level</li>
+                    </ul>
+                </div>
+
+                <div class="best-practice">
+                    <h4>💡 Hub Best Practices</h4>
+                    <ul>
+                        <li><strong>Business Alignment:</strong> Create hubs aligned with business units (e.g., Finance AI Hub, HR AI Hub)</li>
+                        <li><strong>RBAC Roles:</strong> Apply roles at hub level (e.g., data scientist, contributor, reader)</li>
+                        <li><strong>Cost Tracking:</strong> Use tags to track costs across environments (dev/test/prod)</li>
+                        <li><strong>Governance:</strong> Establish consistent policies and standards across all projects</li>
+                    </ul>
+                </div>
+
+                <div class="hands-on">
+                    <h4>🎯 Hands-on Practice</h4>
+                    <ol>
+                        <li>In Azure AI Studio, create a new hub called "Enterprise-AI-Hub"</li>
+                        <li>Configure RBAC roles for different team members</li>
+                        <li>Set up cost tracking tags for environment separation</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Project Deployment -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">📂</div>
+                    <div class="section-title">2. Project (Scoped Environment)</div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Concept</h3>
+                    <div class="concept-card">
+                        <h5>📁 Project Definition</h5>
+                        <p>A Project is a workspace inside a hub, scoped to a specific solution or app (e.g., Customer Support Chatbot Project).</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Project Contents</h3>
+                    <ul class="project-list">
+                        <li><strong>Datasets:</strong> PDFs, images, structured data</li>
+                        <li><strong>Models:</strong> GPT-4, embeddings, fine-tuned versions</li>
+                        <li><strong>Prompt Flows:</strong> Pipelines combining models, data, moderation</li>
+                        <li><strong>Lifecycle Management:</strong> Development → testing → production</li>
+                    </ul>
+                </div>
+
+                <div class="best-practice">
+                    <h4>💡 Project Best Practices</h4>
+                    <ul>
+                        <li><strong>Use Case Focus:</strong> Create projects per use case rather than per developer</li>
+                        <li><strong>Environment Separation:</strong> Keep environments separated (Chatbot Project, Summarization Project, etc.)</li>
+                        <li><strong>Responsible AI:</strong> Enable Responsible AI configuration at the project level</li>
+                        <li><strong>Resource Isolation:</strong> Ensure projects don't interfere with each other</li>
+                    </ul>
+                </div>
+
+                <div class="hands-on">
+                    <h4>🎯 Hands-on Practice</h4>
+                    <ol>
+                        <li>Create a project inside your hub called "HR-Policy-Chatbot"</li>
+                        <li>Configure Responsible AI settings for the project</li>
+                        <li>Set up project-specific access controls</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Deploy Services -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">🔧</div>
+                    <div class="section-title">3. Deploy Necessary Services</div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Core Azure Services</h3>
+                    <p>When setting up a project, you typically provision core Azure services:</p>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>🤖 A. Azure OpenAI Service</h4>
+                    <ul class="service-list">
+                        <li><strong>Models:</strong> Provides GPT, embeddings, and DALL·E models</li>
+                        <li><strong>Use Cases:</strong> Text generation, chat, summarization, code, and image creation</li>
+                        <li><strong>Requirements:</strong> Requires quota approval (not available in every subscription by default)</li>
+                        <li><strong>Deployment:</strong> Deploy in the same region as your other services for optimal performance</li>
+                    </ul>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>🔍 B. Azure AI Search (Cognitive Search)</h4>
+                    <ul class="service-list">
+                        <li><strong>Functionality:</strong> Provides indexing + semantic search capabilities</li>
+                        <li><strong>RAG Essential:</strong> Essential for RAG pattern (Retrieval-Augmented Generation)</li>
+                        <li><strong>Data Enrichment:</strong> Can enrich data with OCR, entity recognition, and translation before indexing</li>
+                        <li><strong>Integration:</strong> Connects with storage accounts and AI services</li>
+                    </ul>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>💾 C. Storage Accounts</h4>
+                    <ul class="service-list">
+                        <li><strong>Blob Storage:</strong> Store unstructured docs (PDF, images)</li>
+                        <li><strong>Database Storage:</strong> CosmosDB / SQL DB for structured datasets (products, customer info)</li>
+                        <li><strong>Knowledge Base:</strong> Used as the raw knowledge base before indexing in AI Search</li>
+                        <li><strong>Access Control:</strong> Configure appropriate access levels and encryption</li>
+                    </ul>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>🔐 D. Azure Key Vault</h4>
+                    <ul class="service-list">
+                        <li><strong>Secret Management:</strong> Stores API keys, credentials, secrets</li>
+                        <li><strong>Security Best Practice:</strong> Recommended instead of embedding keys directly in code</li>
+                        <li><strong>Managed Identity:</strong> Can integrate with Managed Identity to remove need for key sharing</li>
+                        <li><strong>Access Control:</strong> Centralized access management and rotation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Security & Access -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">🛡️</div>
+                    <div class="section-title">Security & Access Considerations</div>
+                </div>
+
+                <div class="security-card">
+                    <h4>🔒 Security Best Practices</h4>
+                    <ul>
+                        <li><strong>Least Privilege:</strong> Apply least privilege access at both hub and project levels</li>
+                        <li><strong>Managed Identity:</strong> Use Managed Identity for apps instead of API keys</li>
+                        <li><strong>Secret Storage:</strong> Store all secrets (OpenAI keys, connection strings) in Key Vault</li>
+                        <li><strong>Network Security:</strong> Enable network restrictions if needed (e.g., private endpoints for storage + search)</li>
+                    </ul>
+                </div>
+
+                <div class="security-card">
+                    <h4>🔐 Access Control Strategy</h4>
+                    <ul>
+                        <li><strong>Hub Level:</strong> Define broad access patterns and governance policies</li>
+                        <li><strong>Project Level:</strong> Implement specific access controls for individual projects</li>
+                        <li><strong>Service Level:</strong> Configure service-specific permissions and restrictions</li>
+                        <li><strong>Monitoring:</strong> Track access patterns and audit security events</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Typical Workflow -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-icon">🔁</div>
+                    <div class="section-title">Typical Deployment Workflow</div>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>📋 Step-by-Step Deployment</h4>
+                    <ol>
+                        <li><strong>Create Hub:</strong> "Finance-AI-Hub"</li>
+                        <li><strong>Create Project:</strong> "Earnings-Call-Summarizer"</li>
+                        <li><strong>Deploy Azure OpenAI:</strong> GPT-4 + embeddings</li>
+                        <li><strong>Deploy Azure AI Search:</strong> Index transcripts + reports</li>
+                        <li><strong>Deploy Storage Account:</strong> PDFs of 10-K filings</li>
+                        <li><strong>Deploy Key Vault:</strong> Securely store API keys + connection strings</li>
+                        <li><strong>Integrate into Prompt Flow:</strong> GPT-4 grounded on indexed SEC filings</li>
+                    </ol>
+                </div>
+
+                <div class="hands-on">
+                    <h4>🎯 Complete Workflow Practice</h4>
+                    <ol>
+                        <li>Create a hub for your organization's AI initiatives</li>
+                        <li>Set up a project for a specific use case</li>
+                        <li>Deploy all necessary Azure services</li>
+                        <li>Configure security and access controls</li>
+                        <li>Test the complete end-to-end workflow</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Comparison Tab -->
+        <div id="comparison" class="tab-content">
+            <div class="comparison-matrix">
+                <h2>🔍 Azure AI Services Comparison Matrix</h2>
+                <p>Choose the right service for your AI deployment needs</p>
+                
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Primary Use</th>
+                            <th>Key Features</th>
+                            <th>Best For</th>
+                            <th>Requirements</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="service-name">Azure OpenAI</td>
+                            <td>AI Models</td>
+                            <td>
+                                <span class="feature-tag">GPT Models</span>
+                                <span class="feature-tag">Embeddings</span>
+                                <span class="feature-tag">DALL·E</span>
+                            </td>
+                            <td>Text generation, chat, summarization, code, images</td>
+                            <td>Quota approval required</td>
+                        </tr>
+                        <tr>
+                            <td class="service-name">Azure AI Search</td>
+                            <td>Search & Indexing</td>
+                            <td>
+                                <span class="feature-tag">Semantic Search</span>
+                                <span class="feature-tag">OCR</span>
+                                <span class="feature-tag">Entity Recognition</span>
+                            </td>
+                            <td>RAG patterns, knowledge bases, document search</td>
+                            <td>Storage account integration</td>
+                        </tr>
+                        <tr>
+                            <td class="service-name">Blob Storage</td>
+                            <td>Unstructured Data</td>
+                            <td>
+                                <span class="feature-tag">PDF Storage</span>
+                                <span class="feature-tag">Image Storage</span>
+                                <span class="feature-tag">Versioning</span>
+                            </td>
+                            <td>Documents, images, raw data storage</td>
+                            <td>Access control configuration</td>
+                        </tr>
+                        <tr>
+                            <td class="service-name">CosmosDB/SQL</td>
+                            <td>Structured Data</td>
+                            <td>
+                                <span class="feature-tag">Relational Data</span>
+                                <span class="feature-tag">NoSQL</span>
+                                <span class="feature-tag">Real-time Access</span>
+                            </td>
+                            <td>Customer data, products, transactions</td>
+                            <td>Database design and indexing</td>
+                        </tr>
+                        <tr>
+                            <td class="service-name">Key Vault</td>
+                            <td>Secret Management</td>
+                            <td>
+                                <span class="feature-tag">API Keys</span>
+                                <span class="feature-tag">Encryption</span>
+                                <span class="feature-tag">Rotation</span>
+                            </td>
+                            <td>Secure credential storage, access control</td>
+                            <td>Managed Identity integration</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-card">
+                <h3>🎯 Service Selection Decision Matrix</h3>
+                <div class="reference-grid">
+                    <div class="reference-item">
+                        <h4>Use Azure OpenAI When:</h4>
+                        <ul>
+                            <li>Need text generation capabilities</li>
+                            <li>Building chatbots or copilots</li>
+                            <li>Require image generation</li>
+                            <li>Need embedding vectors for search</li>
+                        </ul>
+                    </div>
+                    <div class="reference-item">
+                        <h4>Use Azure AI Search When:</h4>
+                        <ul>
+                            <li>Implementing RAG patterns</li>
+                            <li>Need semantic search capabilities</li>
+                            <li>Working with large document collections</li>
+                            <li>Require advanced search features</li>
+                        </ul>
+                    </div>
+                    <div class="reference-item">
+                        <h4>Use Storage Services When:</h4>
+                        <ul>
+                            <li>Storing unstructured documents (Blob)</li>
+                            <li>Managing structured data (CosmosDB/SQL)</li>
+                            <li>Need versioning and backup</li>
+                            <li>Require high availability</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exam Tricks Tab -->
+        <div id="exam-tricks" class="tab-content">
+            <div class="exam-tricks">
+                <h2>🎯 Exam Trick Questions & Common Pitfalls</h2>
+                
+                <div class="trick-question">
+                    <h4>❓ Question: What's the top-level organizational container in Azure AI Foundry?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Hub<br>
+                        <strong>Trick:</strong> Don't confuse with projects - hubs are the top-level containers that can contain multiple projects.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: Which service is essential for RAG (Retrieval-Augmented Generation) patterns?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Azure AI Search<br>
+                        <strong>Trick:</strong> Don't choose Azure OpenAI alone - RAG requires both OpenAI for generation and AI Search for retrieval.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: What's the best practice for storing API keys in Azure AI solutions?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Azure Key Vault with Managed Identity<br>
+                        <strong>Trick:</strong> Don't choose hard-coding or environment variables - Key Vault provides centralized, secure key management.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: Which service requires quota approval before deployment?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Azure OpenAI Service<br>
+                        <strong>Trick:</strong> Don't assume all services are immediately available - OpenAI requires quota approval and isn't available in every subscription by default.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: How should you organize projects within a hub?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> By use case, not by developer<br>
+                        <strong>Trick:</strong> Don't create projects per developer - organize by business use case for better resource management and governance.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: What's the recommended access control strategy for AI services?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Least privilege access at hub and project levels<br>
+                        <strong>Trick:</strong> Don't use broad access permissions - implement least privilege access for better security.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: Which storage service is best for unstructured documents like PDFs?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Azure Blob Storage<br>
+                        <strong>Trick:</strong> Don't choose CosmosDB or SQL - these are for structured data, while Blob Storage is designed for unstructured files.
+                    </div>
+                </div>
+
+                <div class="trick-question">
+                    <h4>❓ Question: What's the first step in a typical AI deployment workflow?</h4>
+                    <div class="trick-answer">
+                        <strong>Answer:</strong> Create a Hub<br>
+                        <strong>Trick:</strong> Don't start with services or projects - always begin with creating the top-level hub container.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Reference Tab -->
+        <div id="quick-ref" class="tab-content">
+            <div class="quick-reference">
+                <h2>⚡ Quick Reference Guide</h2>
+                <p>Essential deployment and resource management information at a glance</p>
+                
+                <div class="reference-grid">
+                    <div class="reference-item">
+                        <h4>🏗️ Hub Management</h4>
+                        <p><strong>Purpose:</strong> Top-level organizational container<br>
+                        <strong>Contains:</strong> Multiple projects, shared infrastructure<br>
+                        <strong>Management:</strong> RBAC, governance, cost tracking<br>
+                        <strong>Best Practice:</strong> Align with business units</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>📂 Project Structure</h4>
+                        <p><strong>Purpose:</strong> Scoped workspace for specific solutions<br>
+                        <strong>Contains:</strong> Datasets, models, prompt flows<br>
+                        <strong>Lifecycle:</strong> Development → testing → production<br>
+                        <strong>Best Practice:</strong> One project per use case</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>🤖 Core Services</h4>
+                        <p><strong>Azure OpenAI:</strong> GPT models, embeddings, DALL·E<br>
+                        <strong>AI Search:</strong> Indexing, semantic search, RAG<br>
+                        <strong>Storage:</strong> Blob for docs, CosmosDB/SQL for data<br>
+                        <strong>Key Vault:</strong> Secret management, API keys</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>🔐 Security</h4>
+                        <p><strong>Access Control:</strong> Least privilege at all levels<br>
+                        <strong>Authentication:</strong> Managed Identity preferred<br>
+                        <strong>Secrets:</strong> Key Vault for all credentials<br>
+                        <strong>Network:</strong> Private endpoints when needed</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>🔄 Deployment Flow</h4>
+                        <p><strong>1. Create Hub:</strong> Organizational container<br>
+                        <strong>2. Create Project:</strong> Use case workspace<br>
+                        <strong>3. Deploy Services:</strong> OpenAI, Search, Storage<br>
+                        <strong>4. Configure Security:</strong> Access, secrets, network</p>
+                    </div>
+
+                    <div class="reference-item">
+                        <h4>🎯 Best Practices</h4>
+                        <p><strong>Organization:</strong> Hub by business unit, project by use case<br>
+                        <strong>Security:</strong> Managed Identity, Key Vault, least privilege<br>
+                        <strong>Governance:</strong> Responsible AI, cost tracking, monitoring<br>
+                        <strong>Integration:</strong> End-to-end workflow testing</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                    <h3>🎯 Deployment Checklist</h3>
+                    <div class="code-block">
+                        ✅ Create hub aligned with business unit<br>
+                        ✅ Set up RBAC roles and permissions<br>
+                        ✅ Create project for specific use case<br>
+                        ✅ Deploy Azure OpenAI service (with quota approval)<br>
+                        ✅ Deploy Azure AI Search for RAG patterns<br>
+                        ✅ Set up storage accounts (Blob + Database)<br>
+                        ✅ Configure Azure Key Vault for secrets<br>
+                        ✅ Implement Managed Identity authentication<br>
+                        ✅ Enable Responsible AI configuration<br>
+                        ✅ Test end-to-end workflow integration
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all nav tabs
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked nav tab
+            event.target.classList.add('active');
+        }
+
+        // Add smooth scrolling for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

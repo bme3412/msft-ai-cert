@@ -1,0 +1,115 @@
+Practice Questions — Selecting the Appropriate Azure AI Foundry Services
+Q1. Generative AI
+
+Your company wants to build an internal chatbot that can answer employees’ HR policy questions by retrieving documents and generating natural language responses. Which Azure AI service is most appropriate?
+
+A. Azure AI Language
+B. Azure AI Search
+C. Azure OpenAI Service with Embeddings
+D. Azure AI Vision
+
+✅ Answer: C – Azure OpenAI + embeddings supports RAG-style semantic search + natural language generation.
+
+Q2. Computer Vision
+
+A hospital wants to digitize old handwritten medical forms into structured text so they can integrate the data into their EHR (Electronic Health Records) system. Which Azure AI service should they use?
+
+A. Azure AI Vision OCR (Read API)
+B. Azure AI Language
+C. Document Intelligence (Form Recognizer)
+D. Azure AI Search
+
+✅ Answer: A – OCR in Azure AI Vision extracts handwritten/printed text from scanned documents.
+
+Q3. NLP
+
+Your marketing team wants to analyze thousands of product reviews on social media to determine if customer sentiment is positive, negative, or neutral. Which Azure AI service should you use?
+
+A. Azure OpenAI GPT-4
+B. Azure AI Vision
+C. Azure AI Language
+D. Azure AI Speech
+
+✅ Answer: C – Azure AI Language has built-in sentiment analysis for customer feedback.
+
+Q4. Speech
+
+You are building an accessibility feature for a mobile app that reads aloud text messages to visually impaired users in a natural-sounding voice. Which Azure AI service should you use?
+
+A. Azure AI Vision
+B. Azure AI Speech (Text-to-Speech)
+C. Azure AI Language
+D. Document Intelligence
+
+✅ Answer: B – Azure AI Speech includes neural text-to-speech voices.
+
+Q5. Information Extraction
+
+An insurance company wants to automatically extract claim numbers, customer names, and payment amounts from thousands of submitted claim forms. Which service should you use?
+
+A. Azure AI Vision Image Analysis
+B. Document Intelligence (Form Recognizer)
+C. Azure AI Search
+D. Azure OpenAI
+
+✅ Answer: B – Form Recognizer is designed for structured/unstructured document data extraction.
+
+Q6. Knowledge Mining
+
+A law firm wants to build a search portal where attorneys can query across millions of PDF case files with natural-language questions. Which Azure AI service is the best fit?
+
+A. Azure AI Search (Cognitive Search)
+B. Azure AI Language
+C. Azure AI Vision OCR
+D. Azure AI Speech
+
+✅ Answer: A – Azure AI Search indexes unstructured docs, supports semantic search, and integrates with OpenAI.
+
+Q7. Trick Question — Generative vs. NLP
+
+You are tasked with generating concise summaries of 200-page research reports. Which service should you use?
+
+A. Azure AI Language Summarization
+B. Azure OpenAI GPT-4
+C. Azure AI Search
+D. Document Intelligence
+
+✅ Answer: B – GPT-4 provides abstractive summarization (not just extractive), making it better for nuanced long documents. Azure AI Language can summarize, but exam will expect GPT-4 for this scenario.
+
+Q8. Trick Question — Vision vs. Document Intelligence
+
+A bank wants to process credit card applications that are scanned into PDFs. They need to extract structured data like applicant name, SSN, and income. Which service is best?
+
+A. Azure AI Vision OCR
+B. Document Intelligence (Form Recognizer)
+C. Azure AI Search
+D. Azure AI Language
+
+✅ Answer: B – Vision OCR extracts text, but Form Recognizer structures it into fields.
+
+Q9. Mixed Scenario
+
+A manufacturing company wants to:
+
+Detect product defects in images.
+
+Extract text from labels on the same products.
+Which combination of services should they use?
+
+A. Azure AI Vision (Image Analysis + OCR)
+B. Document Intelligence + Azure AI Search
+C. Azure AI Language + Azure AI Vision
+D. Azure AI Speech + Azure AI Vision
+
+✅ Answer: A – Vision supports both object detection and OCR in one pipeline.
+
+Q10. Cost & Region Considerations
+
+Your team deployed GPT-4 Turbo in Azure East US, but when expanding to a European region, you find the model is unavailable there. What does this illustrate?
+
+A. Azure AI Vision is not supported in Europe.
+B. Model availability varies by region.
+C. GPT-4 Turbo has been deprecated.
+D. Token costs are different between GPT-3.5 and GPT-4.
+
+✅ Answer: B – Azure OpenAI quota & model availability varies by region.

@@ -1,0 +1,49 @@
+Implement natural language processing solutions (15–20%)
+Analyze and translate text
+Extract key phrases and entities
+
+Determine sentiment of text
+
+Detect the language used in text
+
+Detect personally identifiable information (PII) in text
+
+Translate text and documents by using the Azure AI Translator service
+
+Process and translate speech
+Integrate generative AI speaking capabilities in an application
+
+Implement text-to-speech and speech-to-text using Azure AI Speech
+
+Improve text-to-speech by using Speech Synthesis Markup Language (SSML)
+
+Implement custom speech solutions with Azure AI Speech
+
+Implement intent and keyword recognition with Azure AI Speech
+
+Translate speech-to-speech and speech-to-text by using the Azure AI Speech service
+
+Implement custom language models
+Create intents, entities, and add utterances
+
+Train, evaluate, deploy, and test a language understanding model
+
+Optimize, backup, and recover language understanding model
+
+Consume a language model from a client application
+
+Create a custom question answering project
+
+Add question-and-answer pairs and import sources for question answering
+
+Train, test, and publish a knowledge base
+
+Create a multi-turn conversation
+
+Add alternate phrasing and chit-chat to a knowledge base
+
+Export a knowledge base
+
+Create a multi-language question answering solution
+
+Implement custom translation, including training, improving, and publishing a custom model

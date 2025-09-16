@@ -1,0 +1,187 @@
+Use Azure OpenAI in Foundry Models
+1️⃣ Provision Azure OpenAI
+What It Means
+
+You must first create a Foundry Models resource in Azure AI Foundry.
+
+This provides access to Azure-hosted OpenAI foundation models (GPT, embeddings, DALL·E).
+
+Steps
+
+In Azure Portal → Create Azure AI Foundry resource.
+
+Within hub/project → provision OpenAI model resource.
+
+Assign quota for:
+
+GPT-4 / GPT-4 Turbo
+
+GPT-3.5
+
+Embeddings
+
+DALL·E
+
+GPT-4V (vision multimodal)
+
+Best Practices
+
+Check model availability by region (not all SKUs are in all regions).
+
+Request quota in advance — GPT-4 may need approval.
+
+Use tags to track cost (model: GPT-4 vs GPT-3.5).
+
+Hands-on Practice: Create a Foundry Models resource with GPT-4 and embeddings quota.
+
+2️⃣ Select & Deploy Models
+Available Models
+
+GPT-4 Turbo
+
+Best for complex reasoning, chat apps, summarization.
+
+Lower latency, cheaper, extended context windows.
+
+GPT-3.5
+
+Cost-efficient for lightweight tasks (FAQ bots, drafting).
+
+Useful for high-volume, non-critical use cases.
+
+DALL·E
+
+Generates images from text prompts.
+
+Supports image inpainting & editing.
+
+Multimodal GPT-4 (Vision)
+
+Accepts image + text input.
+
+Outputs text only (not images).
+
+Example: interpret a chart, caption an image, analyze a diagram.
+
+Best Practices
+
+Pick based on business case:
+
+Reasoning/summarization → GPT-4 Turbo.
+
+Cost-sensitive → GPT-3.5.
+
+Visual creative generation → DALL·E.
+
+Image understanding → GPT-4 Vision.
+
+Hands-on Practice: Deploy GPT-4 Turbo and DALL·E in a Foundry project.
+
+3️⃣ Submit Prompts
+How To Submit
+
+Azure AI Studio Playground
+
+GUI for experimenting with prompts.
+
+SDKs
+
+openai → GPT models, embeddings.
+
+azure-ai-inference → broader Azure AI Foundry SDK.
+
+What You Can Generate
+
+Natural Language Responses → chatbot answers.
+
+Summaries → meeting notes, transcripts.
+
+Code Completions → dev copilots, bug fixes.
+
+Images (DALL·E) → marketing visuals, product mockups.
+
+Example Prompt (Python, GPT-4 Turbo)
+from openai import AzureOpenAI
+
+client = AzureOpenAI(
+    api_key="YOUR_KEY",
+    api_version="2024-06-01-preview",
+    azure_endpoint="https://YOUR_RESOURCE.openai.azure.com/"
+)
+
+response = client.chat.completions.create(
+    model="gpt-4-turbo",
+    messages=[{"role":"user","content":"Summarize this meeting transcript..."}],
+    temperature=0.7,
+    max_tokens=500
+)
+
+print(response.choices[0].message["content"])
+
+
+Hands-on Practice:
+
+Generate a 3-paragraph summary of a long text.
+
+Use DALL·E to generate 3 product images from prompts.
+
+Run embeddings for 10 FAQ queries.
+
+4️⃣ Build Assistants (Azure OpenAI Assistants API)
+What It Is
+
+A higher-level orchestration API for managing multi-turn AI interactions.
+
+Key Features
+
+Multi-turn conversations → maintain state across sessions.
+
+Tool calling (functions, APIs) → LLM can call external APIs when needed.
+
+Memory storage → persistent context (e.g., "Remember my name is Alex").
+
+File support → attach docs/images for model grounding.
+
+Use Cases
+
+Customer service assistant → remembers prior interactions.
+
+Developer copilot → calls code APIs for completions.
+
+Analyst assistant → retrieves company data via API calls.
+
+Best Practices
+
+Always integrate content safety filters before returning assistant responses.
+
+Store assistant state in databases for continuity across sessions.
+
+Limit tool access with RBAC + security checks.
+
+Hands-on Practice:
+
+Build an Assistant that:
+
+Handles FAQs.
+
+Calls a weather API if user asks about weather.
+
+Stores user’s name for follow-up conversations.
+
+✅ Exam Triggers
+
+Provision OpenAI models in Azure Foundry → Foundry Models resource.
+
+Scenario: complex reasoning, multi-turn chatbot → GPT-4 Turbo.
+
+Scenario: low-cost FAQ assistant → GPT-3.5.
+
+Scenario: generate visuals for marketing → DALL·E.
+
+Scenario: analyze chart image → GPT-4 Vision.
+
+How to test prompts → AI Studio Playground.
+
+How to integrate into apps → SDKs (openai, azure-ai-inference).
+
+Assistants API capabilities → multi-turn, tool calling, memory.

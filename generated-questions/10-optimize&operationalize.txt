@@ -1,0 +1,138 @@
+Optimize & Operationalize Generative AI Solutions
+Q1. Model Behavior – Temperature
+
+A financial analyst copilot must generate precise and deterministic summaries of quarterly earnings calls. Which configuration is best?
+
+A. Temperature = 0.8
+B. Temperature = 0.2
+C. top_p = 1.0
+D. Frequency penalty = 2.0
+
+✅ Answer: B – Low temperature (0.2) ensures deterministic, precise answers.
+
+Q2. Monitoring
+
+Which Azure service would you use to track token consumption, latency, and error rates for an OpenAI deployment?
+
+A. Azure Blob Storage
+B. Azure Monitor + Application Insights
+C. Azure Key Vault
+D. Azure DevOps
+
+✅ Answer: B – Azure Monitor + App Insights track operational metrics.
+
+Q3. Optimization – Hybrid Model Use
+
+Your company wants to reduce costs but still provide high accuracy when needed. Which deployment strategy is best?
+
+A. Use GPT-4 Turbo for all requests.
+B. Use GPT-3.5 for FAQs and GPT-4 Turbo for complex queries.
+C. Switch to DALL·E for text generation.
+D. Deploy GPT-4 Turbo as a container at the edge.
+
+✅ Answer: B – Hybrid approach: GPT-3.5 for cheap tasks, GPT-4 Turbo for complex ones.
+
+Q4. Feedback & Reflection
+
+Which method uses a secondary model to evaluate the output of a primary model before sending it to the user?
+
+A. Few-shot prompting
+B. Model reflection
+C. Chain-of-thought prompting
+D. Token penalty adjustment
+
+✅ Answer: B – Model reflection uses a secondary LLM to validate/filter outputs.
+
+Q5. Containers & Edge
+
+Which AI services can you deploy in containers for offline or edge scenarios?
+
+A. GPT-4 Turbo and GPT-3.5
+B. DALL·E and GPT-4 Vision
+C. Azure AI Vision, Speech, Form Recognizer
+D. Embeddings models only
+
+✅ Answer: C – Vision, Speech, Form Recognizer support container deployment. GPT models do not.
+
+Q6. Orchestration
+
+You want to combine GPT-4 for reasoning, embeddings for semantic search, and DALL·E for visuals. Which frameworks can you use for orchestration?
+
+A. Azure DevOps and GitHub Actions
+B. LangChain or Semantic Kernel
+C. Azure Key Vault
+D. Azure AI Content Safety
+
+✅ Answer: B – LangChain and Semantic Kernel orchestrate multi-model workflows.
+
+Q7. Prompt Engineering
+
+Which prompt engineering technique explicitly reduces hallucinations and enforces safe output boundaries?
+
+A. Chain-of-thought prompting
+B. Role prompting
+C. Guardrail prompting
+D. Few-shot prompting
+
+✅ Answer: C – Guardrail prompting sets explicit boundaries and restrictions.
+
+Q8. Fine-Tuning
+
+When is fine-tuning most appropriate for an Azure OpenAI solution?
+
+A. When grounding responses on dynamic data sources.
+B. When ensuring style and tone consistency in domain-specific outputs.
+C. When reducing hallucinations in compliance Q&A.
+D. When enabling multimodal reasoning.
+
+✅ Answer: B – Fine-tuning is best for style/format enforcement and domain specialization.
+
+Q9. Trick Question – Hallucinations Fix
+
+Your chatbot frequently generates incorrect compliance answers. Which solution is most effective?
+
+A. Fine-tune GPT-3.5 with internet compliance data.
+B. Implement RAG with Azure AI Search grounding.
+C. Increase temperature for creativity.
+D. Switch to DALL·E for structured answers.
+
+✅ Answer: B – RAG grounding ensures compliance chatbot answers are from trusted data.
+
+Q10. Complex Scenario
+
+You are deploying a global AI assistant that must:
+
+Run low-latency queries in Europe and Asia.
+
+Handle structured (SQL) and unstructured (PDF) data.
+
+Scale to millions of requests per day.
+
+Continuously improve using feedback.
+
+Which combination of features should you implement?
+
+A. GPT-4 Turbo only, deployed once in US-East.
+B. GPT-3.5 for FAQs + GPT-4 Turbo for reasoning + AI Search grounding + App Insights monitoring + feedback loop.
+C. DALL·E for all queries + Azure DevOps pipelines.
+D. Store all API keys in app code for faster access.
+
+✅ Answer: B – This is the hybrid, scalable, monitored, grounded architecture.
+
+✅ Exam Tips for “Optimize & Operationalize”
+
+Model behavior → temperature, top_p, penalties, max_tokens.
+
+Monitoring → Azure Monitor + App Insights (latency, tokens, quota).
+
+Optimization → hybrid GPT-3.5 + GPT-4 approach.
+
+Feedback loops → human-in-the-loop + model reflection.
+
+Containers → supported for Vision, Speech, Form Recognizer (not GPT).
+
+Orchestration → LangChain & Semantic Kernel.
+
+Prompt engineering → few-shot, chain-of-thought, role, guardrail.
+
+Fine-tuning → enforce style/tone, but still pair with RAG for dynamic data.
